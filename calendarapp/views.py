@@ -55,20 +55,14 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
         return context
 
 @login_required(login_url='signup')
-def event(request, event_id=None):
-    instance = Event()
-    if event_id:
-        instance = get_object_or_404(Event, pk=event_id)
-    else:
-        instance = Event()
-    
-    form = EventForm(request.POST or None, instance=instance)
+def create_event(request):    
+    form = EventForm(request.POST or None)
     if request.POST and form.is_valid():
         title = form.cleaned_data['title']
         description = form.cleaned_data['description']
         start_time = form.cleaned_data['start_time']
         end_time = form.cleaned_data['end_time']
-        Event.objects.create(
+        Event.objects.get_or_create(
             user=request.user,
             title=title,
             description=description,
@@ -77,6 +71,11 @@ def event(request, event_id=None):
         )
         return HttpResponseRedirect(reverse('calendarapp:calendar'))
     return render(request, 'event.html', {'form': form})
+
+class EventEdit(generic.UpdateView):
+    model = Event
+    fields = ['title', 'description', 'start_time', 'end_time']
+    template_name = 'event.html'
 
 @login_required(login_url='signup')
 def event_details(request, event_id):
