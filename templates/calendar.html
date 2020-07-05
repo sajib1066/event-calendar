@@ -8,5 +8,7 @@
 	<a class="btn btn-info right" href="{% url 'calendarapp:calendar' %}?{{ next_month }} "> Next Month </a>
     <a class="btn btn-info right mr-2" href="{% url 'calendarapp:event_new' %}"> New Event </a>
 </div>
-{{ calendar }}
+<div style="color: blueviolet;">
+    {{ calendar }}
+</div>
 {% endblock %}
