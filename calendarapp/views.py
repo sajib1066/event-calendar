@@ -10,6 +10,7 @@ import calendar
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
 from .models import *
@@ -108,3 +109,8 @@ def add_eventmember(request, event_id):
         'form': forms
     }
     return render(request, 'add_member.html', context)
+
+class EventMemberDeleteView(generic.DeleteView):
+    model = EventMember
+    template_name = 'event_delete.html'
+    success_url = reverse_lazy('calendarapp:calendar')

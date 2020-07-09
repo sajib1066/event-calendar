@@ -40,7 +40,7 @@ Event Details
                     <td>{{ member.user.username }}</td>
                     <td>{{ member.user.email }}</td>
                     <td>
-                        <a class="btn btn-danger" href="#">Remove</a>
+                        <a class="btn btn-danger" href="{% url 'calendarapp:remove_event' member.id %}">Remove</a>
                     </td>
                 </tr>
                 {% endfor %}
