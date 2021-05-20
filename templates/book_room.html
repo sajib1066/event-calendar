@@ -1,4 +1,5 @@
 <!-- cal/templates/cal/base.html -->
+{% extends 'base.html' %}
 
 {% load static %}
 <!doctype html>
@@ -12,12 +13,32 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-  <title>Booking App</title>
+  <title>Django Calendar App</title>
 </head>
 <body>
 
   {% block content %}
+helloooo
+<table class="form form-table">
+<form action="/your-name/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Submit </button></td></tr>
+    
+</form>
+</table>
 
+<div class="clearfix">
+
+  <a class="btn btn-info right" href="{% url 'logout' %}"> Logout </a>
+<a class="btn btn-info right mr-2" href="{% url 'calendarapp:calendar' %}?{{ next_month }} "> Next Month >> </a>
+  <a class="btn btn-info right mr-2" href="{% url 'calendarapp:calendar' %}?{{ prev_month }}"> << Previous Month </a>
+ 
+</div>
+
+<div style="color: rgb(4, 18, 58);">
+  {{ calendar }}
+</div>
   {% endblock %}
 
   <!-- Optional JavaScript -->

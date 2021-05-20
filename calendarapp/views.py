@@ -15,7 +15,8 @@ from django.urls import reverse_lazy
 
 from .models import *
 from .utils import Calendar
-from .forms import EventForm, AddMemberForm
+from .forms import EventForm, AddMemberForm, Booking_RequestForm
+
 
 @login_required(login_url='signup')
 def index(request):
@@ -114,3 +115,24 @@ class EventMemberDeleteView(generic.DeleteView):
     model = EventMember
     template_name = 'event_delete.html'
     success_url = reverse_lazy('calendarapp:calendar')
+
+
+def book_room_form(request):
+    form = Booking_RequestForm(request.POST)
+    return render(request, 'book_room.html', locals())
+
+
+class CalendarView1(LoginRequiredMixin, generic.ListView):
+   
+    model = Event
+    template_name = 'calendar.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        d = get_date(self.request.GET.get('month', None))
+        cal = Calendar(d.year, d.month)
+        html_cal = cal.formatmonth(withyear=True)
+        context['calendar'] = mark_safe(html_cal)
+        context['prev_month'] = prev_month(d)
+        context['next_month'] = next_month(d)
+        return context

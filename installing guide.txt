@@ -1,0 +1,32 @@
+create virtual envirement
+
+#
+ py -m venv vRoom_booking
+change dir
+#
+cd  vRoom_booking
+
+activate virtual envirment
+scripts/activate
+example
+
+PS C:\Users\mabbas\OneDrive - clevelandfire.gov.uk\CFB_Product\django-eventcalender\vRoom_booking> scripts/activate
+
+Install requirements
+
+pip install -r requirements.txt
+(vRoom_booking) PS C:\Users\mabbas\OneDrive - clevelandfire.gov.uk\CFB_Product\django-eventcalender\vRoom_booking> cd..
+(vRoom_booking) PS C:\Users\mabbas\OneDrive - clevelandfire.gov.uk\CFB_Product\django-eventcalender> pip install -r requirements.txt
+
+
+create database and install django framwork
+Note******:some time need to change directory
+
+
+python manage.py migrate
+
+Createsuper user to access admin panel 
+
+python manage.py createsuperuser
+
+
