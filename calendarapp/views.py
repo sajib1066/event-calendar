@@ -40,12 +40,12 @@ def next_month(d):
     next_month = last + timedelta(days=1)
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
-
+#need delete login requiredminin and login url to show calendar to all
 class CalendarView(LoginRequiredMixin, generic.ListView):
     login_url = 'signup'
     model = Event
     template_name = 'calendar.html'
-
+#
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         d = get_date(self.request.GET.get('month', None))
@@ -56,12 +56,16 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
         context['next_month'] = next_month(d)
         return context
 
+
+
+
 @login_required(login_url='signup')
 def create_event(request):    
     form = EventForm(request.POST or None)
     if request.POST and form.is_valid():
         title = form.cleaned_data['title']
         description = form.cleaned_data['description']
+        
         start_time = form.cleaned_data['start_time']
         end_time = form.cleaned_data['end_time']
         Event.objects.get_or_create(
@@ -73,6 +77,10 @@ def create_event(request):
         )
         return HttpResponseRedirect(reverse('calendarapp:calendar'))
     return render(request, 'event.html', {'form': form})
+
+
+
+
 
 class EventEdit(generic.UpdateView):
     model = Event
@@ -122,17 +130,3 @@ def book_room_form(request):
     return render(request, 'book_room.html', locals())
 
 
-class CalendarView1(LoginRequiredMixin, generic.ListView):
-   
-    model = Event
-    template_name = 'calendar.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        d = get_date(self.request.GET.get('month', None))
-        cal = Calendar(d.year, d.month)
-        html_cal = cal.formatmonth(withyear=True)
-        context['calendar'] = mark_safe(html_cal)
-        context['prev_month'] = prev_month(d)
-        context['next_month'] = next_month(d)
-        return context

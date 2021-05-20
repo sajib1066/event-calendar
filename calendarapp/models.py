@@ -1,14 +1,14 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+from datetime import timedelta
 class Event(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200, unique=True)
+    #title = models.CharField(max_length=200, unique=True) was orginal data field
+    title = models.CharField(max_length=200)
     description = models.TextField()
-    date = models.DateField()
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    start_time = models.DateTimeField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -20,7 +20,7 @@ class Event(models.Model):
     @property
     def get_html_url(self):
         url = reverse('calendarapp:event-detail', args=(self.id,))
-        return f'<a href="{url}"> {self.title} {self.date} {self.start_time} </a>'
+        return f'<a href="{url}"> {self.title} </a>'
 
 
 class EventMember(models.Model):
