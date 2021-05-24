@@ -1,0 +1,74 @@
+<!-- cal/templates/cal/base.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+
+  <title>Django Calendar App</title>
+</head>
+<body>
+
+  {% block content %}
+<h1> AllRoom Booking Request</h1>
+{% if allreq %}
+<h1>show data</h1>
+
+<style>
+  table {
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid orange;
+    padding: 10px;
+    text-align: left;
+  }
+</style>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Meeting_Title</th>
+    <th>Date</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Phone</th>
+    <th>EmailPhone</th>
+    <th>Description</th>
+    <th>Room_id</th>
+    <th>Date Stamp </th>
+    <th>Request Status</th>
+  </tr>
+  {% for st in allreq %}
+ 
+<td>{{st.id}}</td>
+  <td>{{st.meeting_title}}</td>
+  <td>{{st.Date}}</td>
+  <td>{{st.start_time}}</td>
+  <td>{{st.end_time}}</td>
+  <td>{{st.phone}}</td>
+  <td>{{st.email}}</td>
+  <td>{{st.description}}</td>
+  <td>{{st.Room_id}}</td>
+  <td>{{st.created_date}}</td>
+  <td>{{st.is_completed}}</td>
+<tr>
+{% endfor %}
+</table>
+
+
+{% else %}
+<h1>No Data</h1>
+
+{% endif %}
+  {% endblock %}
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  
+
+</body>
+</html>

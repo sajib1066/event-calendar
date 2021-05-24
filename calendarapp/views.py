@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-
+from calendarapp.models import Booking_Request
 
 from .models import *
 from .utils import Calendar
@@ -127,6 +127,18 @@ class EventMemberDeleteView(generic.DeleteView):
 
 def book_room_form(request):
     form = Booking_RequestForm(request.POST)
+    # form = request.POST
+
+    if form.is_valid():
+        save_it = form.save(commit=False)
+        save_it.save()
+        verified = True
+        print(verified)
+    else:
+        print('not verified')
     return render(request, 'book_room.html', locals())
 
 
+def all_request(request):
+    allrequest = Booking_Request.objects.all()
+    return render(request,'All_request.html',{'allreq':allrequest})

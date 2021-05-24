@@ -2,6 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import timedelta
+
+
 class Event(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     #title = models.CharField(max_length=200, unique=True) was orginal data field
@@ -33,6 +35,22 @@ class EventMember(models.Model):
     def __str__(self):
         return str(self.user)
 
+class Facility(models.Model):
+    Facility = models.CharField(max_length=200)
+    def __str__(self):
+        return self.Facility
+    def __unicode__(self):
+        return self.Facility
+
+
+
+class Room(models.Model):
+    Room = models.CharField(max_length=200)
+    Facility = models.ManyToManyField(Facility)
+    def __str__(self):
+        return self.Room
+    def __unicode__(self):
+        return self.Room
 
 
 class Booking_Request(models.Model):
@@ -45,7 +63,8 @@ class Booking_Request(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     phone = models.IntegerField(blank=True, null=True)
     email = models.CharField(max_length=200)
-    
+    Room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    #number_of_person = models.IntegerField(blank=True, null=True)
     isComplete = models.BooleanField(default=False)
     def __str__(self):
         return self.meeting_title 
