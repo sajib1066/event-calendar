@@ -3,6 +3,22 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import timedelta
 
+class Facility(models.Model):
+    Facility = models.CharField(max_length=200)
+    def __str__(self):
+        return self.Facility
+    def __unicode__(self):
+        return self.Facility
+
+
+
+class Room(models.Model):
+    Room = models.CharField(max_length=200)
+    #Facility = models.ManyToManyField(Facility)
+    def __str__(self):
+        return self.Room
+    def __unicode__(self):
+        return self.Room
 
 class Event(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -46,7 +62,7 @@ class Facility(models.Model):
 
 class Room(models.Model):
     Room = models.CharField(max_length=200)
-    Facility = models.ManyToManyField(Facility)
+    #Facility = models.ManyToManyField(Facility)
     def __str__(self):
         return self.Room
     def __unicode__(self):
