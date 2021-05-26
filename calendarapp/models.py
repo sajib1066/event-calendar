@@ -14,21 +14,21 @@ class Facility(models.Model):
 
 class Room(models.Model):
     Room = models.CharField(max_length=200)
-    #Facility = models.ManyToManyField(Facility)
+    Facility = models.ManyToManyField(Facility)
     def __str__(self):
         return self.Room
     def __unicode__(self):
         return self.Room
 
 class Event(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     #title = models.CharField(max_length=200, unique=True) was orginal data field
     title = models.CharField(max_length=200)
     description = models.TextField()
     start_time = models.DateTimeField(null=True, blank=True)
-    end_time = models.TimeField(null=True, blank=True)
+    end_time = models.DateTimeField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
-
+    is_approved = models.BooleanField(default=False)
     def __str__(self):
         return self.title
     
@@ -70,7 +70,6 @@ class Room(models.Model):
 
 
 class Booking_Request(models.Model):
-    
     meeting_title = models.CharField(max_length=200)
     description = models.TextField()
     Date = models.DateField()

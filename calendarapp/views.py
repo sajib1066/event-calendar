@@ -41,8 +41,8 @@ def next_month(d):
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
 #need delete login requiredminin and login url to show calendar to all
-class CalendarView(LoginRequiredMixin, generic.ListView):
-    login_url = 'signup'
+class CalendarView( generic.ListView):
+    
     model = Event
     template_name = 'calendar.html'
 #
@@ -59,7 +59,7 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
 
 
 
-@login_required(login_url='signup')
+#@login_required(login_url='signup')
 def create_event(request):    
     form = EventForm(request.POST or None)
     if request.POST and form.is_valid():
@@ -69,7 +69,6 @@ def create_event(request):
         start_time = form.cleaned_data['start_time']
         end_time = form.cleaned_data['end_time']
         Event.objects.get_or_create(
-            user=request.user,
             title=title,
             description=description,
             start_time=start_time,

@@ -16,7 +16,21 @@
 <h1> AllRoom Booking Request</h1>
 {% if allreq %}
 <h1>show data</h1>
+<div class="form-row field-start_time">
+            
+            
+  <div>
+      
+      
+          <label class="required" for="id_start_time">Start time:</label>
+          
+              <input type="text" name="start_time" value="09:00:00" class="vTimeField" size="8" required="" id="id_start_time"><span class="datetimeshortcuts">&nbsp;<a href="#">Now</a>&nbsp;|&nbsp;<a href="#" id="clocklink0"><span class="clock-icon" title="Choose a Time"></span></a></span>
+          
+      
+      
+  </div>
 
+</div>
 <style>
   table {
     border-collapse: collapse;
@@ -43,7 +57,7 @@
     <th>Request Status</th>
   </tr>
   {% for st in allreq %}
- 
+ {% if st.isComplete %}
 <td>{{st.id}}</td>
   <td>{{st.meeting_title}}</td>
   <td>{{st.Date}}</td>
@@ -54,7 +68,8 @@
   <td>{{st.description}}</td>
   <td>{{st.Room_id}}</td>
   <td>{{st.created_date}}</td>
-  <td>{{st.is_completed}}</td>
+  <td>{{st.isComplete}}</td>
+  {%endif%}
 <tr>
 {% endfor %}
 </table>
@@ -69,6 +84,7 @@
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   
+</div>
 
 </body>
 </html>
