@@ -1,0 +1,70 @@
+<!-- cal/templates/cal/base.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+
+  <title>Django Calendar App</title>
+</head>
+<body>
+
+  {% block content %}
+<h1> Approved Booking Request</h1>
+<hr>
+{% if approvedreq %}
+
+
+<style>
+  table {
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid orange;
+    padding: 10px;
+    text-align: left;
+  }
+</style>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Start Date/Time</th>
+    <th>End Date/Time</th>
+    <th>Created Date</th>
+    <th>Request Status</th>
+  </tr>
+  {% for st in approvedreq %}
+  {% if st.is_approved %}
+  <td>{{st.id}}</td>
+  <td>{{st.title}}</td>
+  <td>{{st.description}}</td>
+  <td>{{st.start_time}}</td>
+  <td>{{st.end_time}}</td>
+  <td>{{st.created_date}}</td>
+  <td>{{st.is_approved}}</td>
+  {%endif%}
+<tr>
+{% endfor %}
+</table>
+
+
+{% else %}
+<h1>No Data</h1>
+
+{% endif %}
+  {% endblock %}
+
+
+  
+</div>
+
+</body>
+</html>
+
+

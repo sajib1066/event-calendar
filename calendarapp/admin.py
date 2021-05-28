@@ -20,10 +20,12 @@ class Room_admin(admin.ModelAdmin):
     model = Room
     list_display = ['Room']
 
+class Event_admin(admin.ModelAdmin):
+    model = Event
+    list_display = ['title','start_time','end_time', 'is_approved']
 
 
-
-admin.site.register(Event)
+admin.site.register(Event,Event_admin)
 admin.site.register(EventMember, EventMemberAdmin)
 admin.site.register(Booking_Request, Booking_Request_admin)
 admin.site.register(Facility,Facility_admin)

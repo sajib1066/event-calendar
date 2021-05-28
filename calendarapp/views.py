@@ -138,6 +138,20 @@ def book_room_form(request):
     return render(request, 'book_room.html', locals())
 
 
+
+
 def all_request(request):
     allrequest = Booking_Request.objects.all()
     return render(request,'All_request.html',{'allreq':allrequest})
+
+
+
+def pending_request(request):
+    pendingrequest = Event.objects.all()
+    return render(request,'Pending_request.html',{'pendingreq':pendingrequest})
+
+def approved_request(request):
+    approvedrequest = Event.objects.all()
+    return render(request,'Approved_request.html',{'approvedreq':approvedrequest})
+
+

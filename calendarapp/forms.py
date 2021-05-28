@@ -33,3 +33,4 @@ class Booking_RequestForm(forms.ModelForm):
   class Meta:
     model = Booking_Request
     fields = '__all__'
+

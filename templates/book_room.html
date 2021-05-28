@@ -18,13 +18,45 @@
 <body>
 
   {% block content %}
-helloooo
+<h1>Room Booking Form</h1><hr>
 
-<form method="post">
+<!-- <form method="post">
     {% csrf_token %}
     {{ form }}
   
     <button class="btn btn-success" type="submit">Go</button>
+</form> -->
+<form method="post">{% csrf_token %}
+   <label for="id_meeting_title">Meeting title:</label><input type="text" name="meeting_title" maxlength="200" required="" id="id_meeting_title"><br>
+<label for="id_description">Description:</label><textarea name="description" cols="40" rows="10" required="" id="id_description"></textarea><br>
+<label for="id_Date">Date:</label><input type="date" name="Date" required="" id="id_Date"><br>
+
+
+
+<label for="id_start_time">Start time:</label><input type="time" name="start_time" required="" id="id_start_time"><br>
+<label for="id_end_time">End time:</label><input type="text" name="end_time" required="" id="id_end_time"><br><br>
+
+
+
+<label for="id_phone">Phone:</label><input type="number" name="phone" id="id_phone"><br>
+<label for="id_email">Email:</label><input type="text" name="email" maxlength="200" required="" id="id_email"><br>
+<label for="id_Room">Room:</label><select name="Room" required="" id="id_Room"><br>
+<option value="" selected="">---------</option>
+
+<option value="1">small room</option>
+
+<option value="2">Community Room</option>
+
+<option value="3">Fire House</option>
+
+<option value="4">Main Hall</option>
+
+<option value="5">Dance Room</option>
+
+</select><br>
+<label for="id_isComplete">IsComplete:</label><input type="checkbox" name="isComplete" id="id_isComplete"><br>
+
+  <button class="btn btn-success" type="submit">Go</button>
 </form>
 
 {{allreq}}

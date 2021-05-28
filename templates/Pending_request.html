@@ -13,22 +13,23 @@
 <body>
 
   {% block content %}
-<h1> AllRoom Booking Request</h1>
-{% if allreq %}
-<h1>show data</h1>
+<h1> Pending Booking Request</h1>
+<hr>
+{% if pendingreq %}
+
 <div class="form-row field-start_time">
             
             
-  <div>
+  <!-- <div>
       
-<!--       
+       
           <label class="required" for="id_start_time">Start time:</label>
           
               <input type="text" name="start_time" value="09:00:00" class="vTimeField" size="8" required="" id="id_start_time"><span class="datetimeshortcuts">&nbsp;<a href="#">Now</a>&nbsp;|&nbsp;<a href="#" id="clocklink0"><span class="clock-icon" title="Choose a Time"></span></a></span>
-           -->
       
       
-  </div>
+      
+  </div> -->
 
 </div>
 <style>
@@ -45,31 +46,23 @@
 <table>
   <tr>
     <th>ID</th>
-    <th>Meeting_Title</th>
-    <th>Date</th>
-    <th>Start Time</th>
-    <th>End Time</th>
-    <th>Phone</th>
-    <th>EmailPhone</th>
+    <th>Title</th>
     <th>Description</th>
-    <th>Room_id</th>
-    <th>Date Stamp </th>
+    <th>Start Date/Time</th>
+    <th>End Date/Time</th>
+    <th>Created Date</th>
     <th>Request Status</th>
   </tr>
-  {% for st in allreq %}
- <!-- {% if st.isComplete %} -->
+  {% for st in pendingreq %}
+ 
 <td>{{st.id}}</td>
-  <td>{{st.meeting_title}}</td>
-  <td>{{st.Date}}</td>
+  <td>{{st.title}}</td>
+  <td>{{st.description}}</td>
   <td>{{st.start_time}}</td>
   <td>{{st.end_time}}</td>
-  <td>{{st.phone}}</td>
-  <td>{{st.email}}</td>
-  <td>{{st.description}}</td>
-  <td>{{st.Room_id}}</td>
   <td>{{st.created_date}}</td>
-  <td>{{st.isComplete}}</td>
-  <!-- {%endif%} -->
+  <td>{{st.is_approved}}</td>
+
 <tr>
 {% endfor %}
 </table>

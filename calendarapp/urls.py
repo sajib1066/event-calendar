@@ -14,5 +14,7 @@ urlpatterns = [
     path('add_eventmember/<int:event_id>', views.add_eventmember, name='add_eventmember'),
     path('event/<int:pk>/remove', views.EventMemberDeleteView.as_view(), name="remove_event"),
     path('book_room_urlpath',CalendarViewapp.book_room_form),
-     path('All_reuest_url',CalendarViewapp.all_request),
+    path('pending_request_url',CalendarViewapp.pending_request),
+    path('approved_request_url',CalendarViewapp.approved_request),
+    path('All_request_url',CalendarViewapp.all_request),
 ]
