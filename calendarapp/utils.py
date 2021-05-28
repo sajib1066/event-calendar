@@ -16,8 +16,10 @@ class Calendar(HTMLCalendar):
 	def formatday(self, day, events):
 		events_per_day = events.filter(start_time__day=day)
 		d = ''
+		d += '<a href="/event/new/">+ </a>'
 	#add another field to show in calendar	
 		for event in events_per_day:
+			
 			if event.is_approved: 
 				d += f'<li><button type="button" class="btn btn-primary btn-sm">{event.get_html_url} @{event.start_time}</button></li>'
 			else: 

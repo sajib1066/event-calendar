@@ -56,12 +56,14 @@
   {% for st in pendingreq %}
   {% if st.is_approved == False %}
 <td>{{st.id}}</td>
-  <td>{{st.title}}</td>
-  <td>{{st.description}}</td>
+  <td><a href="/event/edit/{{st.pk}}">{{st.title}}</a></td>
+  <td> {{st.description}}</td>
   <td>{{st.start_time}}</td>
   <td>{{st.end_time}}</td>
   <td>{{st.created_date}}</td>
-  <td>{{st.is_approved}}</td>
+  <form method="POST">{% csrf_token %}
+  <td><input type="text" name="booking_id" value="{{st.pk}}"><button type="submit" class="btn btn-success">Approve</button></td>
+  </form>
 {% endif %}
 <tr>
 {% endfor %}

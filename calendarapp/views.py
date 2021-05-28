@@ -147,7 +147,17 @@ def all_request(request):
 # Show all created booking request by the end user
 def pending_request(request):
     pendingrequest = Event.objects.all()
+
+    if request.POST:
+        form = request.POST
+        booking_id = form["booking_id"]
+        booking_to_edit = get_object_or_404(Event, id=booking_id)
+        booking_to_edit.is_approved = True
+        #booking_to_edit.description = "32"
+        booking_to_edit.save()
+
     return render(request,'Pending_request.html',{'pendingreq':pendingrequest})
+
 # Show all approved by the District Manger/admin 
 def approved_request(request):
     approvedrequest = Event.objects.all()
