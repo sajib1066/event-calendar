@@ -54,7 +54,7 @@
     <th>Request Status</th>
   </tr>
   {% for st in pendingreq %}
- 
+  {% if st.is_approved == False %}
 <td>{{st.id}}</td>
   <td>{{st.title}}</td>
   <td>{{st.description}}</td>
@@ -62,7 +62,7 @@
   <td>{{st.end_time}}</td>
   <td>{{st.created_date}}</td>
   <td>{{st.is_approved}}</td>
-
+{% endif %}
 <tr>
 {% endfor %}
 </table>

@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+#extra page use for practice
 from calendarapp.models import Booking_Request
 
 from .models import *
@@ -83,7 +84,7 @@ def create_event(request):
 
 class EventEdit(generic.UpdateView):
     model = Event
-    fields = ['title', 'description', 'start_time', 'end_time']
+    fields = ['title', 'description', 'start_time', 'end_time', 'is_approved']
     template_name = 'event.html'
 
 @login_required(login_url='signup')
@@ -139,17 +140,15 @@ def book_room_form(request):
 
 
 
-
+# Create to practice show data in taBLE Query
 def all_request(request):
     allrequest = Booking_Request.objects.all()
     return render(request,'All_request.html',{'allreq':allrequest})
-
-
-
+# Show all created booking request by the end user
 def pending_request(request):
     pendingrequest = Event.objects.all()
     return render(request,'Pending_request.html',{'pendingreq':pendingrequest})
-
+# Show all approved by the District Manger/admin 
 def approved_request(request):
     approvedrequest = Event.objects.all()
     return render(request,'Approved_request.html',{'approvedreq':approvedrequest})

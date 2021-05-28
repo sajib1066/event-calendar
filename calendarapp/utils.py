@@ -16,10 +16,13 @@ class Calendar(HTMLCalendar):
 	def formatday(self, day, events):
 		events_per_day = events.filter(start_time__day=day)
 		d = ''
-	#add another field to show in calc	
+	#add another field to show in calendar	
 		for event in events_per_day:
-			d += f'<li><button type="button" class="btn btn-primary btn-sm">{event.get_html_url} @{event.start_time}</button></li>'
-	
+			if event.is_approved: 
+				d += f'<li><button type="button" class="btn btn-primary btn-sm">{event.get_html_url} @{event.start_time}</button></li>'
+			else: 
+				d += f'<li><button type="button" class="btn btn-danger btn-sm">{event.get_html_url} Request Pending</button></li>'
+
 		if day != 0:
 			return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
 		return '<td></td>'
