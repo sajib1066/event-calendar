@@ -1,0 +1,285 @@
+a {
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.nav-list-head-left {
+    background-color: gainsboro;
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+}
+
+.nav-list-head {
+    background-color: gainsboro;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 60px;
+}
+.nav-list-head li {
+    display: inline;
+    padding: 10px;
+}
+
+.nav-list-head a {
+    color: #243755;
+}
+
+.nav-list-main {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    min-height: 80px;
+}
+
+.nav-list-main li {
+    height: 50px;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #acacac;
+}
+
+.nav-list-main a {
+    color: #243755;
+}
+
+.ptxt2x {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 1.375rem;
+    font-weight: 100;
+}
+
+.vertical-hr-x2 {
+    border-left: 1px solid #acacac;
+    border-right: 1px solid #acacac;
+}
+
+.vertical-hr-x1 {
+    border-left: 1px solid #acacac;
+}
+
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.main-section-grey {
+    background-color: gainsboro;
+}
+
+.bg-db-wt {
+    color: white;
+    background-color: rgb(0, 18, 74);
+}
+
+.bg-dg-wt {
+    color: white;
+    background-color: #808080;
+}
+
+.bg-rd-wt {
+    color: white;
+    background-color: rgb(238, 52, 67);
+}
+
+.bg-gd-wt {
+    color: white;
+    background-color: rgb(211,145,73);
+}
+
+.bg-pl-wt {
+    color: white;
+    background-color: rgb(120,13,179);
+}
+
+.bg-or-wt {
+    color: white;
+    background-color: rgb(234,143,22);
+}
+
+.bg-lb-wt {
+    color: white;
+    background-color: rgb(0, 104, 180);
+}
+
+.bg-aq-wt {
+    color: white;
+    background-color: rgb(18, 115, 138);
+}
+
+.bg-gr-wt {
+    color: white;
+    background-color: rgb(5, 136, 40);
+}
+
+.footer {
+    color: white;
+    background-color: #0f1b52;
+} 
+
+.footer-nav {
+    display: flex;
+    align-items: center;
+    min-height: 60px;
+}
+
+.footer-nav li {
+    display: inline;
+    padding: 10px;
+}
+
+.footer-nav a {
+    color: #dbdbdb;
+}
+
+.txt_grey{
+    color: lightslategrey;
+}
+
+.p_2x{
+    font-size: 1.5rem;
+}
+
+.a_blk{
+    color: black;
+}
+
+.a_blk:hover{
+    color: black;
+    text-decoration-color: black;
+}
+
+.no-bullets {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+  }
+
+  /* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+.cfb_container{
+    max-width: 1140px;
+}
+
+.cfb_txt-white{
+    color: white;
+}
+
+.cfb_banner-sm{
+    min-height: 30px;;
+}
+
+.cfb_ctrl-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    background-color: white;
+    border: solid 1px rgb(0, 0, 0);
+    margin: 0px;
+    z-index: 1;
+}
+
+.cfb_ctrl-box:hover {
+    background-color: rgb(85, 127, 206);
+    color: white;
+}
+
+.cfb_ctrl-box .popout{
+    visibility: hidden;
+    position: absolute;
+    padding: 10px;
+    color: white;
+    border: solid 1px black;
+    width: 150px;
+    height: 50px;
+    margin-left: 120px;
+    opacity: 0%;
+    z-index: -1;
+}
+
+.cfb_ctrl-box:hover .popout{
+    visibility: visible;
+    background-color: rgb(85, 127, 206);
+    opacity: 100%;
+    transform: translateX(40px);
+    transition: all 0.5s;
+    /* transition: opacity 0.5s; */
+    
+}
+
+.accordion-button{
+    border: 1px solid #114d92;
+    padding: 20px;
+}
+
+.accordion-button:focus{
+    border-color: #114d92;
+    box-shadow: none;
+}
+
+.cfb_hr{
+    border-top: 2px solid #114d92;
+    margin-top: 20px;
+}
+
+/* removes background image of bootstrap accordion button */
+.cfb_acc-rm-bgimg::after{
+    background-image: none;
+}
+.cfb_acc-lnk{
+    color: black;
+    font-size: 1.2rem;
+}
+
+.cfb_acc-lnk:hover{
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+.hide{
+    visibility: hidden;
+    height: 1px;
+    width: 1px;
+}
+
+/* Dashed border */
+hr.dashed {
+    border-top: 3px dashed #bbb;
+  }
+  
