@@ -13,6 +13,17 @@
 <body>
 
   {% block content %}
+  <div class="clearfix">
+    <span class="left m-2" style="font-size: 20px;">Wellcome, {{ request.user }}</span>
+    <a class="btn btn-info right" href="{% url 'logout' %}"> Logout </a>
+	<a class="btn btn-info right mr-2" href="{% url 'calendarapp:calendar' %}?{{ next_month }} "> Next Month >> </a>
+    <a class="btn btn-info right mr-2" href="{% url 'calendarapp:calendar' %}?{{ prev_month }}"> << Previous Month </a>
+    <a class="btn btn-info right mr-2" href="/add_event"> + Book Now</a>
+    <a class="btn btn-info right mr-2" href="/pending_request_url"> Pending  Request </a>
+    <a class="btn btn-info right mr-2" href="/approved_request_url"> Approved Request </a>
+   
+   
+</div>
 <h1> Pending Booking Request</h1>
 <hr>
 {% if pendingreq %}
@@ -62,7 +73,7 @@
   <td>{{st.end_time}}</td>
   <td>{{st.created_date}}</td>
   <form method="POST">{% csrf_token %}
-  <td><input type="text" name="booking_id" value="{{st.pk}}"><button type="submit" class="btn btn-success">Approve</button></td>
+  <td><input hidden type="text" name="booking_id" value="{{st.pk}}"><button type="submit" class="btn btn-success">Approve</button></td>
   </form>
 {% endif %}
 <tr>
@@ -74,6 +85,7 @@
 <h1>No Data</h1>
 
 {% endif %}
+
   {% endblock %}
 
   <!-- Optional JavaScript -->

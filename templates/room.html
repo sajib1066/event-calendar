@@ -23,11 +23,8 @@
     <a class="btn btn-info right mr-2" href="/approved_request_url"> Approved Request </a>
    
 </div>
-<h1> Approved Booking Request</h1>
+<h1> All Rooms</h1>
 <hr>
-{% if approvedreq %}
-
-
 <style>
   table {
     border-collapse: collapse;
@@ -38,37 +35,39 @@
     text-align: left;
   }
 </style>
+{% if verified %}
+<p class="alert alert-success"> Room updated </p>
 
+{% endif %}
 <table>
   <tr>
     <th>ID</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Start Date/Time</th>
-    <th>End Date/Time</th>
-    <th>Created Date</th>
-    <th>Request Status</th>
-  </tr>
-  {% for st in approvedreq %}
-  {% if st.is_approved %}
-  <td>{{st.id}}</td>
-  <td>{{st.title}}</td>
-  <td>{{st.description}}</td>
-  <td>{{st.start_time}}</td>
-  <td>{{st.end_time}}</td>
-  <td>{{st.created_date}}</td>
-  <td>{{st.is_approved}}</td>
-  {%endif%}
+    <th>Room</th>
+    <th>Edit</th>
+ 
+{% for st in room_detail %}
+ 
+ {% if st.id == get_room.id %}
 <tr>
+ <form method="post">{% csrf_token %}
+  <td>{{st.id}}</td>
+  <td><input type="text" name="Room" value="{{st.Room}}" maxlength="200" required="" id="id_Room"></td>
+  <td><button class="btn btn-success right mr-2" type="submit" name="sumbit"> Save </button></td>
+ </form>
+ </tr>
+ {% else %}
+ <tr>
+ <td>{{st.id}}</td>
+  <td>{{st.Room}}</td>
+  <td><a class="btn btn-info right mr-2" href="/room/edit/{{st.id}} " > Edit Room </a></td>
+</tr>
+
+{% endif %}
 {% endfor %}
 </table>
 
 
-{% else %}
-<h1>No Data</h1>
-
-{% endif %}
-  {% endblock %}
+{% endblock %}
 
 
   

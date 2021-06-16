@@ -41,18 +41,9 @@
 <label for="id_phone">Phone:</label><input type="number" name="phone" id="id_phone"><br>
 <label for="id_email">Email:</label><input type="text" name="email" maxlength="200" required="" id="id_email"><br>
 <label for="id_Room">Room:</label><select name="Room" required="" id="id_Room"><br>
-<option value="" selected="">---------</option>
-
-<option value="1">small room</option>
-
-<option value="2">Community Room</option>
-
-<option value="3">Fire House</option>
-
-<option value="4">Main Hall</option>
-
-<option value="5">Dance Room</option>
-
+{%for Room in all_Rooms%}
+<option value="{{Room.id}}" selected>{{Room}}</option>
+{%endfor%}
 </select><br>
 <label for="id_isComplete">IsComplete:</label><input type="checkbox" name="isComplete" id="id_isComplete"><br>
 

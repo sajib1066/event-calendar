@@ -14,8 +14,11 @@ class EventForm(ModelForm):
   def __init__(self, *args, **kwargs):
     super(EventForm, self).__init__(*args, **kwargs)
     # input_formats to parse HTML5 datetime-local input to datetime field
-    #self.fields['start_time'].input_formats = ('%Y-%m-%dT%H:%M',)
-    #self.fields['end_time'].input_formats = ('%Y-%m-%dT%H:%M',)
+    # self.fields['Room'].input_formats = all_Rooms
+
+    # new hidden stuff
+    self.fields['start_time'].input_formats = ('%Y-%m-%dT%H:%M',)
+    self.fields['end_time'].input_formats = ('%Y-%m-%dT%H:%M',)
 
 
 
@@ -32,5 +35,10 @@ class AddMemberForm(forms.ModelForm):
 class Booking_RequestForm(forms.ModelForm):
   class Meta:
     model = Booking_Request
+    fields = '__all__'
+
+class Event_Form(forms.ModelForm):
+  class Meta:
+    model = Event
     fields = '__all__'
 

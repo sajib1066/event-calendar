@@ -1,3 +1,4 @@
+
 # calendarapp/utils.py
 
 from datetime import datetime, timedelta
@@ -16,12 +17,15 @@ class Calendar(HTMLCalendar):
 	def formatday(self, day, events):
 		events_per_day = events.filter(start_time__day=day)
 		d = ''
-		d += '<a href="/event/new/">+ </a>'
+		d += '<div class=""><a href="/add_event">+Add </a></div>'
 	#add another field to show in calendar	
 		for event in events_per_day:
 			
+			event_time = event.start_time.strftime("%d-%m-%Y %H:%M")
+			# f_time = event_time.strftime("%d-%m-%Y %H:%M")
 			if event.is_approved: 
-				d += f'<li><button type="button" class="btn btn-primary btn-sm">{event.get_html_url} @{event.start_time}</button></li>'
+				d += f'<li><button type="button" class="btn btn-primary btn-sm">{event.get_html_url} -{event_time}</button></li>'
+				
 			else: 
 				d += f'<li><button type="button" class="btn btn-danger btn-sm">{event.get_html_url} Request Pending</button></li>'
 

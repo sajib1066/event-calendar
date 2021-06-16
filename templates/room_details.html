@@ -23,9 +23,9 @@
     <a class="btn btn-info right mr-2" href="/approved_request_url"> Approved Request </a>
    
 </div>
-<h1> Approved Booking Request</h1>
+<h1> All Rooms</h1>
 <hr>
-{% if approvedreq %}
+{% if room_det %}
 
 
 <style>
@@ -42,30 +42,21 @@
 <table>
   <tr>
     <th>ID</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Start Date/Time</th>
-    <th>End Date/Time</th>
-    <th>Created Date</th>
-    <th>Request Status</th>
+    <th>Room</th>
+    <th>Edit</th>
   </tr>
-  {% for st in approvedreq %}
-  {% if st.is_approved %}
+  {% for st in room_det %}
+ 
   <td>{{st.id}}</td>
-  <td>{{st.title}}</td>
-  <td>{{st.description}}</td>
-  <td>{{st.start_time}}</td>
-  <td>{{st.end_time}}</td>
-  <td>{{st.created_date}}</td>
-  <td>{{st.is_approved}}</td>
-  {%endif%}
+  <td>{{st.Room}}</td>
+  <td><a class="btn btn-info right mr-2" href="/room/edit/{{st.id}}" > Edit Room </a></td>
+  <!-- <td><input hidden type="text" name="Room_id" value="{{st.pk}}"><button type="submit" class="btn btn-success">Approve</button></td> -->
+ 
 <tr>
 {% endfor %}
 </table>
 
 
-{% else %}
-<h1>No Data</h1>
 
 {% endif %}
   {% endblock %}

@@ -14,7 +14,12 @@ urlpatterns = [
     path('add_eventmember/<int:event_id>', views.add_eventmember, name='add_eventmember'),
     path('event/<int:pk>/remove', views.EventMemberDeleteView.as_view(), name="remove_event"),
     path('book_room_urlpath',CalendarViewapp.book_room_form),
+    path('add_event',CalendarViewapp.Add_Event),
     path('pending_request_url',CalendarViewapp.pending_request),
     path('approved_request_url',CalendarViewapp.approved_request),
     path('All_request_url',CalendarViewapp.all_request),
+    path('app_admin',views.CalendarView1.as_view(), name='calendar'),
+    path('room/edit/<int:room_id>/', CalendarViewapp.RoomEdit),
+    path('room/edit/save/<int:room_id>/', CalendarViewapp.RoomEdit),
+    path('viewrooms',CalendarViewapp.view_rooms),
 ]

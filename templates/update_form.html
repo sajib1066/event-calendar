@@ -1,0 +1,25 @@
+<!-- cal/templates/cal/base.html -->
+{% extends 'base.html' %}
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+
+
+  <title>Django Calendar App</title>
+</head>
+
+<body>
+  <form method="POST">{% csrf_token %}
+      
+  <!-- form variable -->    
+   {{ form.as_p }} 
+  
+    <input type="submit" name="sumbit">
+  </form>
+      </body>
+</html>
+
+

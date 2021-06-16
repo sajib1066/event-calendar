@@ -282,4 +282,13 @@ a:hover{
 hr.dashed {
     border-top: 3px dashed #bbb;
   }
-  
+
+.float {
+    float:right;
+    height:100%;
+    margin-left: 15px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    shape-outside:radial-gradient(circle 150px at bottom right,#fff 98%,transparent );
+}

@@ -1,3 +1,5 @@
+
+
 {% extends 'base.html' %}
 
 {% block title %}
@@ -9,12 +11,34 @@ Event
   <a class="btn btn-info left" href="{% url 'calendarapp:calendar' %}"> Calendar </a>
 </div>
 
-<form method="post">
-  {% csrf_token %}
-  <table class="form form-table">
-   
-    {{ form }}
-    <tr><td colspan="2"><button type="submit" class="btn btn-info right"> Submit </button></td></tr>
-  </table>
+<form method="post">{% csrf_token %}
+<table class="form form-table">
+{% for field in form %}
+{% if field.name == "user" %}
+<p class="hide"> {{ field }} </p>
+{% else %}
+<tr>
+<td>{{ field.label }}</td>
+<td> {{ field }}</td>
+</tr>
+{% endif %}
+{% endfor %}
+<tr><td colspan="2"><button type="submit" class="btn btn-info right"> Submit </button></td></tr>
+</table>
 </form>
+
+  
+  
+<script>
+  $(function () {
+    $("#id_start_time").datetimepicker();
+  });
+</script>
+</script>
+<script>
+  $(function () {
+    $("#id_end_time").datetimepicker();
+  });
+</script>
+</script>
 {% endblock %}

@@ -7,8 +7,10 @@
     
 
 	<a class="btn btn-info right mr-2" href="{% url 'calendarapp:calendar' %}?{{ next_month }} "> Next Month >> </a>
+        <a class="btn btn-info right mr-2" href="{% url 'calendarapp:calendar' %}?{{Current_month}}">  Current Month </a>
     <a class="btn btn-info right mr-2" href="{% url 'calendarapp:calendar' %}?{{ prev_month }}"> << Previous Month </a>
-    <a class="btn btn-info right mr-2" href="{% url 'calendarapp:event_new' %}"> + Book Now </a>
+    <!-- <a class="btn btn-info right mr-2" href="{% url 'calendarapp:event_new' %}"> + Book Now </a> -->
+    <a class="btn btn-info right mr-2" href="/add_event"> + Book Now</a>
    
    
 </div>
