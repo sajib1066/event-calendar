@@ -206,6 +206,8 @@ def sample_form(request):
 #testing1 form for expirement
 def Add_Event(request):
     form = Event_Form(request.POST)
+    print(form)
+
     if form.is_valid():
         save_it = form.save(commit=False)
         save_it.save()

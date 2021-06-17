@@ -72,4 +72,5 @@ class Booking_Request(models.Model):
         return self.meeting_title 
     def __unicode__(self):
         return self.meeting_title
-    
+
+#test

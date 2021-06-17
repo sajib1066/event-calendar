@@ -21,11 +21,28 @@ class Calendar(HTMLCalendar):
 	#add another field to show in calendar	
 		for event in events_per_day:
 			
-			event_time = event.start_time.strftime("%d-%m-%Y %H:%M")
+			
+			
+		
+		
+			# event_time = event.start_time.strftime("%d-%m-%Y %H:%M")
 			# f_time = event_time.strftime("%d-%m-%Y %H:%M")
-			if event.is_approved: 
-				d += f'<li><button type="button" class="btn btn-primary btn-sm">{event.get_html_url} -{event_time}</button></li>'
+			event_start_time = None
+			event_end_time = None
+
+			if event.is_approved:
+				if event.start_time != None:
+					event_start_time = event.start_time.strftime("%H:%M")
+				if event.end_time != None:
+					event_end_time = event.end_time.strftime("%H:%M")
 				
+				if event_start_time and event_end_time:
+					d += f'<li><button type="button" class="btn btn-primary btn-sm">{event.get_html_url} -{event_start_time} - {event_end_time}</button></li>'
+				elif event_start_time:
+					d += f'<li><button type="button" class="btn btn-primary btn-sm">{event.get_html_url} -{event_start_time}</button></li>'
+				elif event_end_time:	
+					d += f'<li><button type="button" class="btn btn-primary btn-sm">{event.get_html_url} -{event_end_time}</button></li>'
+
 			else: 
 				d += f'<li><button type="button" class="btn btn-danger btn-sm">{event.get_html_url} Request Pending</button></li>'
 

@@ -42,3 +42,8 @@ class Event_Form(forms.ModelForm):
     model = Event
     fields = '__all__'
 
+class test_Form(forms.ModelForm):
+  class Meta:
+    model = Event
+    fields = '__all__'
+

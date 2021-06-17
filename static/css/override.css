@@ -292,3 +292,9 @@ hr.dashed {
     justify-content:flex-end;
     shape-outside:radial-gradient(circle 150px at bottom right,#fff 98%,transparent );
 }
+
+.datepicker {
+    position: relative !important;
+    top: -290px !important;
+    left: 0 !important;
+}
