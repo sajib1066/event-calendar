@@ -1,4 +1,8 @@
 asgiref==3.2.10
 Django==3.1.12
+flake8==3.9.2
+mccabe==0.6.1
+pycodestyle==2.7.0
+pyflakes==2.3.1
 pytz==2020.1
 sqlparse==0.3.1
