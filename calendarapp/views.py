@@ -7,19 +7,20 @@ from django.views import generic
 from django.utils.safestring import mark_safe
 from datetime import timedelta
 import calendar
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 
-from .models import *
+from .models import EventMember, Event
 from .utils import Calendar
 from .forms import EventForm, AddMemberForm
+
 
 @login_required(login_url='signup')
 def index(request):
     return HttpResponse('hello')
+
 
 def get_date(req_day):
     if req_day:
@@ -27,11 +28,13 @@ def get_date(req_day):
         return date(year, month, day=1)
     return datetime.today()
 
+
 def prev_month(d):
     first = d.replace(day=1)
     prev_month = first - timedelta(days=1)
     month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
     return month
+
 
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]
@@ -39,6 +42,7 @@ def next_month(d):
     next_month = last + timedelta(days=1)
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
+
 
 class CalendarView(LoginRequiredMixin, generic.ListView):
     login_url = 'accounts:signin'
@@ -55,8 +59,9 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
         context['next_month'] = next_month(d)
         return context
 
+
 @login_required(login_url='signup')
-def create_event(request):    
+def create_event(request):
     form = EventForm(request.POST or None)
     if request.POST and form.is_valid():
         title = form.cleaned_data['title']
@@ -73,10 +78,12 @@ def create_event(request):
         return HttpResponseRedirect(reverse('calendarapp:calendar'))
     return render(request, 'event.html', {'form': form})
 
+
 class EventEdit(generic.UpdateView):
     model = Event
     fields = ['title', 'description', 'start_time', 'end_time']
     template_name = 'event.html'
+
 
 @login_required(login_url='signup')
 def event_details(request, event_id):
@@ -109,6 +116,7 @@ def add_eventmember(request, event_id):
         'form': forms
     }
     return render(request, 'add_member.html', context)
+
 
 class EventMemberDeleteView(generic.DeleteView):
     model = EventMember

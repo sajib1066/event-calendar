@@ -2,6 +2,7 @@ from django.contrib.sessions.models import Session
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+
 def get_current_user():
     active_sessions = Session.objects.filter(expire_date__gte=timezone.now())
     user_id_list = []
