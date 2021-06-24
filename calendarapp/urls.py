@@ -7,7 +7,8 @@ app_name = 'calendarapp'
 
 urlpatterns = [
     path('index', views.index, name='index'),
-    path('', views.CalendarView.as_view(), name='calendar'),
+    path('', views.DashboardView.as_view(), name='dashboard'),
+    path('calender/', views.CalendarView.as_view(), name='calendar'),
     path('event/new/', views.create_event, name='event_new'),
     path(
         'event/edit/<int:pk>/', views.EventEdit.as_view(), name='event_edit'
