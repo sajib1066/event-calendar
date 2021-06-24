@@ -40,18 +40,6 @@
                                         </div>
                                         <form action="#" class="signup-form">
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="label" for="name">Full Name</label>
-                                                        <input type="text" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="label" for="name">Username</label>
-                                                        <input type="text" class="form-control" />
-                                                    </div>
-                                                </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="label" for="email">Email Address</label>
@@ -64,26 +52,15 @@
                                                         <input type="password" class="form-control" />
                                                     </div>
                                                 </div>
-                                                <div class="col-md-12 my-4">
-                                                    <div class="form-group">
-                                                        <div class="w-100">
-                                                            <label class="checkbox-wrap checkbox-primary">
-                                                                I agree all statements in terms of service
-                                                                <input type="checkbox" checked />
-                                                                <span class="checkmark"></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-primary submit p-3">Create an account</button>
+                                                        <button type="submit" class="btn btn-primary submit p-3">Sign In</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
                                         <div class="w-100">
-                                            <p class="mt-4">I'm already a member! <a href="{% url 'accounts:signin' %}">Sign In</a></p>
+                                            <p class="mt-4">New in event calendar? <a href="{% url 'accounts:signup' %}">Sign Up</a></p>
                                         </div>
                                     </div>
                                 </div>
