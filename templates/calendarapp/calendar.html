@@ -25,11 +25,13 @@
                 <div id="external-events">
                     <h4 class="mb-4">Running Events</h4>
                     {% for event in events_month %}
-                    <div class="fc-event">
-                        <h3>{{ event.title }}</h3>
-                        <p>From: {{ event.start_time }}</p>
-                        <p>To: {{ event.end_time }}</p>
-                    </div>
+                      <div class="fc-event">
+                          <h3>{{ event.title }}</h3>
+                          <p>From: {{ event.start_time }}</p>
+                          <p>To: {{ event.end_time }}</p>
+                      </div>
+                    {% empty %}
+                      <p>No Running Events Found</p>
                     {% endfor %}
                 </div>
             </div>
