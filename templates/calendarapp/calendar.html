@@ -1,147 +1,156 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% block title %}Event Calendar{% endblock title %}
 
 {% block extracss %}
-<link href="{% static 'calender/main.css' %}" rel='stylesheet' />
-<script src="{% static 'calender/main.js' %}"></script>
+  <link href="{% static 'calender/main.css' %}" rel="stylesheet" />
 {% endblock extracss %}
+
+{% block breadcrumb %}
+  <div>
+      <h1><i class="fa fa-calendar"></i> Calendar</h1>
+      <p>Event Calendar</p>
+  </div>
+  <ul class="app-breadcrumb breadcrumb">
+      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+      <li class="breadcrumb-item"><a href="#">Calendar</a></li>
+  </ul>
+{% endblock breadcrumb %}
 
 {% block content %}
 <div class="row">
-  <div class="col-md-12">
-    <div class="tile row">
-      <div class="col-md-3">
-        <div id="external-events">
-          <h4 class="mb-4">Events This Month</h4>
-          {% for event in events_month %}
-            <div class="fc-event">
-              <h3>{{ event.title }}</h3>
-              <p>From: {{ event.start_time }}</p>
-              <p>To: {{ event.end_time }}</p>
+    <div class="col-md-12">
+        <div class="tile row">
+            <div class="col-md-3">
+                <div id="external-events">
+                    <h4 class="mb-4">Running Events</h4>
+                    {% for event in events_month %}
+                    <div class="fc-event">
+                        <h3>{{ event.title }}</h3>
+                        <p>From: {{ event.start_time }}</p>
+                        <p>To: {{ event.end_time }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="col-md-9">
-        <div id="calendar"></div>
-      </div>
-
-      <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add New Event</h5>
-              <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div class="col-md-9">
+                <div id="calendar"></div>
             </div>
-            <form method="post">
-              {% csrf_token %}
-              <div class="modal-body">
-                  <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Event Title:</label>
-                    {{ form.title }}
-                  </div>
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">Description:</label>
-                    {{ form.description }}
-                  </div>
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">Start Date:</label>
-                    {{ form.start_time }}
-                  </div>
-                  <div class="form-group">
-                    <label for="message-text" class="col-form-label">End Date:</label>
-                    {{ form.end_time }}
-                  </div>
-              </div>
-              <div class="modal-footer">
-                <button id="modalClose2" type="button" class="btn btn-secondary">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
 
+            <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title text-white" id="exampleModalLongTitle">Add New Event</h5>
+                            <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Event Title:</label>
+                                    {{ form.title }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Description:</label>
+                                    {{ form.description }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Start Date:</label>
+                                    {{ form.start_time }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">End Date:</label>
+                                    {{ form.end_time }}
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="modalClose2" type="button" class="btn btn-danger">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock content %}
 
 {% block extrascripts %}
+  <script src="{% static 'calender/main.js' %}"></script>
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var today = new Date();
 
-<script>
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+          },
+          initialDate: today,
+          navLinks: true, // can click day/week names to navigate views
+          selectable: true,
+          selectMirror: true,
+          select: function(arg) {
+            console.log('clicked')
+            var modal = document.getElementById('eventModal')
+            modal.style.display = 'block'
+            calendar.unselect()
+          },
+          // THIS KEY WON'T WORK IN PRODUCTION!!!
+          // To make your own Google API key, follow the directions here:
+          // http://fullcalendar.io/docs/google_calendar/
+          // googleCalendarApiKey: 'AIzaSyCqCxjjLtjbtkX37aOtWB8OfwBLy_6QuYk',
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    var today = new Date();
+          // bangladesh Holidays
+          // events: 'bn.bd#holiday@group.v.calendar.google.com',
+          eventClick: function(arg) {
+            if (confirm('Are you sure you want to delete this event?')) {
+              arg.event.remove()
+            }
+          },
+          editable: true,
+          dayMaxEvents: true, // allow "more" link when too many events
+          events: {{ events|safe }},
+          // events: [
+          //   {
+          //     title: 'All Day Event',
+          //     start: '2021-06-26'
+          //   },
+          //   {
+          //     groupId: 999,
+          //     title: 'Repeating Event',
+          //     start: '2020-09-16T16:00:00'
+          //   },
+          //   {
+          //     title: 'Conference',
+          //     start: '2020-09-11',
+          //     end: '2020-09-13'
+          //   },
+          //   {
+          //     title: 'Click for Google',
+          //     url: 'http://google.com/',
+          //     start: '2020-09-28'
+          //   }
+          // ]
+        });
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
-      },
-      initialDate: today,
-      navLinks: true, // can click day/week names to navigate views
-      selectable: true,
-      selectMirror: true,
-      select: function(arg) {
-        console.log('clicked')
-        var modal = document.getElementById('eventModal')
-        modal.style.display = 'block'
-        calendar.unselect()
-      },
-       // THIS KEY WON'T WORK IN PRODUCTION!!!
-      // To make your own Google API key, follow the directions here:
-      // http://fullcalendar.io/docs/google_calendar/
-      // googleCalendarApiKey: 'AIzaSyCqCxjjLtjbtkX37aOtWB8OfwBLy_6QuYk',
-
-      // bangladesh Holidays
-      // events: 'bn.bd#holiday@group.v.calendar.google.com',
-      eventClick: function(arg) {
-        if (confirm('Are you sure you want to delete this event?')) {
-          arg.event.remove()
-        }
-      },
-      editable: true,
-      dayMaxEvents: true, // allow "more" link when too many events
-      events: {{ events|safe }},
-      // events: [
-      //   {
-      //     title: 'All Day Event',
-      //     start: '2021-06-26'
-      //   },
-      //   {
-      //     groupId: 999,
-      //     title: 'Repeating Event',
-      //     start: '2020-09-16T16:00:00'
-      //   },
-      //   {
-      //     title: 'Conference',
-      //     start: '2020-09-11',
-      //     end: '2020-09-13'
-      //   },
-      //   {
-      //     title: 'Click for Google',
-      //     url: 'http://google.com/',
-      //     start: '2020-09-28'
-      //   }
-      // ]
-    });
-
-    calendar.render();
-  });
-  const closeBtn1 = document.getElementById('modalClose1');
-  const closeBtn2 = document.getElementById('modalClose2');
-  closeBtn1.addEventListener('click',()=>{
-    const eventModal = document.getElementById('eventModal')
-    eventModal.style.display = 'none';
-  });
-  closeBtn2.addEventListener('click',()=>{
-    const eventModal = document.getElementById('eventModal')
-    eventModal.style.display = 'none';
-  });
-</script>
+        calendar.render();
+      });
+      const closeBtn1 = document.getElementById('modalClose1');
+      const closeBtn2 = document.getElementById('modalClose2');
+      closeBtn1.addEventListener('click',()=>{
+        const eventModal = document.getElementById('eventModal')
+        eventModal.style.display = 'none';
+      });
+      closeBtn2.addEventListener('click',()=>{
+        const eventModal = document.getElementById('eventModal')
+        eventModal.style.display = 'none';
+      });
+  </script>
 {% endblock extrascripts %}

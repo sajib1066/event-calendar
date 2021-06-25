@@ -9,13 +9,21 @@ class EventForm(ModelForm):
         fields = ['title', 'description', 'start_time', 'end_time']
         # datetime-local is a HTML5 input type
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter event title'
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter event description'
+            }),
             'start_time': DateInput(
-                attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'
+                attrs={'type': 'datetime-local', 'class': 'form-control'},
+                format='%Y-%m-%dT%H:%M'
             ),
             'end_time': DateInput(
-                attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'
+                attrs={'type': 'datetime-local', 'class': 'form-control'},
+                format='%Y-%m-%dT%H:%M'
             ),
         }
         exclude = ['user']

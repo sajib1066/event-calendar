@@ -14,7 +14,7 @@
         <meta property="og:url" content="https://sajib1066.github.io/" />
         <meta property="og:image" content="https://sajib1066.github.io/images/me.jpg" />
         <meta property="og:description" content="Event Dashboard" />
-        <title>Event Dashboard</title>
+        <title>{% block title %}{% endblock title  %}</title>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -120,13 +120,13 @@
                     <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
                     <ul class="dropdown-menu settings-menu dropdown-menu-right">
                         <li>
-                            <a class="dropdown-item" href="page-user.html"><i class="fa fa-cog fa-lg"></i> Settings</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-cog fa-lg"></i> Settings</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="page-user.html"><i class="fa fa-user fa-lg"></i> Profile</a>
+                            <a class="dropdown-item" href="#"><i class="fa fa-user fa-lg"></i> Profile</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="page-login.html"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
+                            <a class="dropdown-item" href="{% url 'accounts:signout' %}"><i class="fa fa-sign-out fa-lg"></i> Sign Out</a>
                         </li>
                     </ul>
                 </li>
@@ -147,7 +147,7 @@
                     <a class="app-menu__item active" href="{% url 'dashboard' %}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a>
                 </li>
                 <li>
-                    <a class="app-menu__item" href="{% url 'calendarapp:calendar' %}"><i class="app-menu__icon fa fa-pie-chart"></i><span class="app-menu__label">Calendar</span></a>
+                    <a class="app-menu__item" href="{% url 'calendarapp:calendar' %}"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">Calendar</span></a>
                 </li>
                 <li class="treeview">
                     <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Events</span><i class="treeview-indicator fa fa-angle-right"></i></a>
@@ -164,20 +164,14 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="app-menu__item" href="docs.html"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Docs</span></a>
+                    <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Docs</span></a>
                 </li>
             </ul>
         </aside>
         <main class="app-content">
             <div class="app-title">
-                <div>
-                    <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
-                    <p>A free and open source Bootstrap 4 admin template</p>
-                </div>
-                <ul class="app-breadcrumb breadcrumb">
-                    <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-                    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                </ul>
+                {% block breadcrumb %}
+                {% endblock breadcrumb %}
             </div>
             {% block content %}
             {% endblock content %}
