@@ -1,7 +1,7 @@
 # cal/views.py
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.views import generic
 from django.utils.safestring import mark_safe
 from datetime import timedelta, datetime, date
@@ -14,11 +14,6 @@ from django.urls import reverse_lazy, reverse
 from .models import EventMember, Event
 from .utils import Calendar
 from .forms import EventForm, AddMemberForm
-
-
-@login_required(login_url='signup')
-def index(request):
-    return HttpResponse('hello')
 
 
 def get_date(req_day):
@@ -123,11 +118,6 @@ class EventMemberDeleteView(generic.DeleteView):
     success_url = reverse_lazy('calendarapp:calendar')
 
 
-class DashboardView(LoginRequiredMixin, generic.TemplateView):
-    login_url = 'accounts:signin'
-    template_name = 'calendarapp/dashboard.html'
-
-
 class CalendarViewNew(LoginRequiredMixin, generic.View):
     login_url = 'accounts:signin'
     template_name = 'calendarapp/calendar.html'
@@ -135,9 +125,12 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
 
     def get(self, request, *args, **kwargs):
         forms = self.form_class()
-        events = Event.objects.filter(user=request.user)
+        events = Event.objects.filter(
+            user=request.user, is_active=True, is_deleted=False
+        )
         events_month = Event.objects.filter(
-            user=request.user, end_time__gte=datetime.now().date()
+            user=request.user, is_active=True, is_deleted=False,
+            end_time__gte=datetime.now().date()
         ).order_by('start_time')
         event_list = []
         # start: '2020-09-16T16:00:00'
