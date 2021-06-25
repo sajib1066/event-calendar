@@ -10,9 +10,7 @@ class DashboardView(LoginRequiredMixin, View):
     template_name = 'calendarapp/dashboard.html'
 
     def get(self, request, *args, **kwargs):
-        events = Event.objects.filter(
-            user=request.user, is_active=True, is_deleted=False
-        )
+        events = Event.objects.get_all_events(user=request.user)
         context = {
             'total_event': events.count()
         }

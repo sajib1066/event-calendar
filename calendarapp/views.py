@@ -125,13 +125,8 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
 
     def get(self, request, *args, **kwargs):
         forms = self.form_class()
-        events = Event.objects.filter(
-            user=request.user, is_active=True, is_deleted=False
-        )
-        events_month = Event.objects.filter(
-            user=request.user, is_active=True, is_deleted=False,
-            end_time__gte=datetime.now().date()
-        ).order_by('start_time')
+        events = Event.objects.get_all_events(user=request.user)
+        events_month = Event.objects.get_running_events(user=request.user)
         event_list = []
         # start: '2020-09-16T16:00:00'
         for event in events:
