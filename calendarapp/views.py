@@ -1,11 +1,10 @@
 # cal/views.py
 
-from datetime import datetime, date
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.utils.safestring import mark_safe
-from datetime import timedelta
+from datetime import timedelta, datetime, date
 import calendar
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -129,6 +128,40 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'calendarapp/dashboard.html'
 
 
-class CalendarViewNew(LoginRequiredMixin, generic.TemplateView):
+class CalendarViewNew(LoginRequiredMixin, generic.View):
     login_url = 'accounts:signin'
     template_name = 'calendarapp/calendar.html'
+    form_class = EventForm
+
+    def get(self, request, *args, **kwargs):
+        forms = self.form_class()
+        events = Event.objects.filter(user=request.user)
+        events_month = Event.objects.filter(
+            user=request.user, end_time__gte=datetime.now().date()
+        ).order_by('start_time')
+        event_list = []
+        # start: '2020-09-16T16:00:00'
+        for event in events:
+            event_list.append({
+                'title': event.title,
+                'start': event.start_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
+                'end': event.end_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
+            })
+        context = {
+            'form': forms,
+            'events': event_list,
+            'events_month': events_month
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        forms = self.form_class(request.POST)
+        if forms.is_valid():
+            form = forms.save(commit=False)
+            form.user = request.user
+            form.save()
+            return redirect('calendarapp:calendar')
+        context = {
+            'form': forms
+        }
+        return render(request, self.template_name, context)

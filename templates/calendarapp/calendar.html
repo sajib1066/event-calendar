@@ -13,16 +13,57 @@
       <div class="col-md-3">
         <div id="external-events">
           <h4 class="mb-4">Events This Month</h4>
-          <div class="fc-event">My Event 1</div>
-          <div class="fc-event">My Event 2</div>
-          <div class="fc-event">My Event 3</div>
-          <div class="fc-event">My Event 4</div>
-          <div class="fc-event">My Event 5</div>
+          {% for event in events_month %}
+            <div class="fc-event">
+              <h3>{{ event.title }}</h3>
+              <p>From: {{ event.start_time }}</p>
+              <p>To: {{ event.end_time }}</p>
+            </div>
+          {% endfor %}
         </div>
       </div>
       <div class="col-md-9">
         <div id="calendar"></div>
       </div>
+
+      <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Event</h5>
+              <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form method="post">
+              {% csrf_token %}
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Event Title:</label>
+                    {{ form.title }}
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Description:</label>
+                    {{ form.description }}
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">Start Date:</label>
+                    {{ form.start_time }}
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">End Date:</label>
+                    {{ form.end_time }}
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button id="modalClose2" type="button" class="btn btn-secondary">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -47,24 +88,18 @@
       selectable: true,
       selectMirror: true,
       select: function(arg) {
-        var title = prompt('Event Title:');
-        if (title) {
-          calendar.addEvent({
-            title: title,
-            start: arg.start,
-            end: arg.end,
-            allDay: arg.allDay
-          })
-        }
+        console.log('clicked')
+        var modal = document.getElementById('eventModal')
+        modal.style.display = 'block'
         calendar.unselect()
       },
        // THIS KEY WON'T WORK IN PRODUCTION!!!
       // To make your own Google API key, follow the directions here:
       // http://fullcalendar.io/docs/google_calendar/
-      googleCalendarApiKey: 'AIzaSyCqCxjjLtjbtkX37aOtWB8OfwBLy_6QuYk',
+      // googleCalendarApiKey: 'AIzaSyCqCxjjLtjbtkX37aOtWB8OfwBLy_6QuYk',
 
-      // US Holidays
-      events: 'bn.bd#holiday@group.v.calendar.google.com',
+      // bangladesh Holidays
+      // events: 'bn.bd#holiday@group.v.calendar.google.com',
       eventClick: function(arg) {
         if (confirm('Are you sure you want to delete this event?')) {
           arg.event.remove()
@@ -72,20 +107,11 @@
       },
       editable: true,
       dayMaxEvents: true, // allow "more" link when too many events
+      events: {{ events|safe }},
       // events: [
       //   {
       //     title: 'All Day Event',
-      //     start: '2020-09-01'
-      //   },
-      //   {
-      //     title: 'Long Event',
-      //     start: '2020-09-07',
-      //     end: '2020-09-10'
-      //   },
-      //   {
-      //     groupId: 999,
-      //     title: 'Repeating Event',
-      //     start: '2020-09-09T16:00:00'
+      //     start: '2021-06-26'
       //   },
       //   {
       //     groupId: 999,
@@ -98,31 +124,6 @@
       //     end: '2020-09-13'
       //   },
       //   {
-      //     title: 'Meeting',
-      //     start: '2020-09-12T10:30:00',
-      //     end: '2020-09-12T12:30:00'
-      //   },
-      //   {
-      //     title: 'Lunch',
-      //     start: '2020-09-12T12:00:00'
-      //   },
-      //   {
-      //     title: 'Meeting',
-      //     start: '2020-09-12T14:30:00'
-      //   },
-      //   {
-      //     title: 'Happy Hour',
-      //     start: '2020-09-12T17:30:00'
-      //   },
-      //   {
-      //     title: 'Dinner',
-      //     start: '2020-09-12T20:00:00'
-      //   },
-      //   {
-      //     title: 'Birthday Party',
-      //     start: '2020-09-13T07:00:00'
-      //   },
-      //   {
       //     title: 'Click for Google',
       //     url: 'http://google.com/',
       //     start: '2020-09-28'
@@ -132,6 +133,15 @@
 
     calendar.render();
   });
-
+  const closeBtn1 = document.getElementById('modalClose1');
+  const closeBtn2 = document.getElementById('modalClose2');
+  closeBtn1.addEventListener('click',()=>{
+    const eventModal = document.getElementById('eventModal')
+    eventModal.style.display = 'none';
+  });
+  closeBtn2.addEventListener('click',()=>{
+    const eventModal = document.getElementById('eventModal')
+    eventModal.style.display = 'none';
+  });
 </script>
 {% endblock extrascripts %}

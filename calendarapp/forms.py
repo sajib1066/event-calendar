@@ -8,6 +8,8 @@ class EventForm(ModelForm):
         model = Event
         # datetime-local is a HTML5 input type
         widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
             'start_time': DateInput(
                 attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'
             ),
