@@ -13,6 +13,11 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  DB_NAME: postgres
+  DB_USER: postgres
+  DB_PASS: postgres
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -20,17 +25,53 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:13-alpine
+        env:
+          POSTGRES_DB: $DB_NAME
+          POSTGRES_USER: $DB_USER
+          POSTGRES_PASSWORD: $DB_PASS
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # Setup python
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      # Install requirements
+      - name: Install requirements
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      # Run migrations
+      - name: Run migrations
+        env:
+          DB_NAME: $DB_NAME
+          DB_USER: $DB_USER
+          DB_PASS: $DB_PASS
+        run: |
+          python manage.py migrate --noinput
+
+      # Run tests
+      - name: Run tests
+        env:
+          DB_NAME: $DB_NAME
+          DB_USER: $DB_USER
+          DB_PASS: $DB_PASS
+        run: |
+          python manage.py tests
+
+      # Check coding style
+      - name: Check coding style
+        run: |
+          flake8
