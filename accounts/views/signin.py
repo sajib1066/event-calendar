@@ -20,9 +20,9 @@ class SignInView(View):
     def post(self, request, *args, **kwargs):
         forms = self.form_class(request.POST)
         if forms.is_valid():
-            username = forms.cleaned_data['username']
+            email = forms.cleaned_data['email']
             password = forms.cleaned_data['password']
-            user = authenticate(username=username, password=password)
+            user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
                 return redirect('calendarapp:calendar')
