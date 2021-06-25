@@ -127,3 +127,8 @@ class EventMemberDeleteView(generic.DeleteView):
 class DashboardView(LoginRequiredMixin, generic.TemplateView):
     login_url = 'accounts:signin'
     template_name = 'calendarapp/dashboard.html'
+
+
+class CalendarViewNew(LoginRequiredMixin, generic.TemplateView):
+    login_url = 'accounts:signin'
+    template_name = 'calendarapp/calendar.html'
