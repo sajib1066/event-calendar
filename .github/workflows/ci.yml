@@ -69,7 +69,7 @@ jobs:
           DB_USER: $DB_USER
           DB_PASS: $DB_PASS
         run: |
-          python manage.py tests
+          python manage.py test
 
       # Check coding style
       - name: Check coding style
