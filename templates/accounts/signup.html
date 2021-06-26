@@ -38,30 +38,28 @@
                                                 <span>or</span>
                                             </p>
                                         </div>
-                                        <form action="#" class="signup-form">
+                                        <form action="#" method="post" class="signup-form">
+                                            {% csrf_token %}
                                             <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="label" for="name">Full Name</label>
-                                                        <input type="text" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label class="label" for="name">Username</label>
-                                                        <input type="text" class="form-control" />
-                                                    </div>
-                                                </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="label" for="email">Email Address</label>
-                                                        <input type="text" class="form-control" />
+                                                        {{ form.email }}
+                                                        <span class="text-danger">{{ form.errors.email }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="label" for="password">Password</label>
-                                                        <input type="password" class="form-control" />
+                                                        {{ form.password1 }}
+                                                        <span class="text-danger">{{ form.errors.password1 }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="label" for="password">Password</label>
+                                                        {{ form.password2 }}
+                                                        <span class="text-danger">{{ form.errors.password2 }}</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 my-4">
@@ -77,7 +75,7 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <button type="submit" class="btn btn-primary submit p-3">Create an account</button>
+                                                        <button type="submit" class="btn btn-primary">Create an account</button>
                                                     </div>
                                                 </div>
                                             </div>
