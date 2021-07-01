@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Event List{% endblock title %}
+
+{% block breadcrumb %}
+    <div>
+        <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
+        <p>Event List</p>
+    </div>
+    <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><a href="#">Event List</a></li>
+    </ul>
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="table-responsive">
+                    <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 261.641px;">SL</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Event Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">Start Time</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">End Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for event in object_list %}
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">{{ forloop.counter }}</td>
+                                                <td>{{ event.title }}</td>
+                                                <td>{{ event.start_time }}</td>
+                                                <td>{{ event.end_time }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock content %}
+
+{% block extrascripts %}
+    <script type="text/javascript" src="{% static 'js/plugins/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/plugins/dataTables.bootstrap.min.js' %}"></script>
+    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+{% endblock extrascripts %}

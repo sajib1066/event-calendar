@@ -11,9 +11,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 
 
-from .models import EventMember, Event
-from .utils import Calendar
-from .forms import EventForm, AddMemberForm
+from calendarapp.models import EventMember, Event
+from calendarapp.utils import Calendar
+from calendarapp.forms import EventForm, AddMemberForm
 
 
 def get_date(req_day):

@@ -153,13 +153,13 @@
                     <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-th-list"></i><span class="app-menu__label">Events</span><i class="treeview-indicator fa fa-angle-right"></i></a>
                     <ul class="treeview-menu">
                         <li>
-                            <a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Running</a>
+                            <a class="treeview-item" href="{% url 'calendarapp:running_events' %}"><i class="icon fa fa-circle-o"></i> Running</a>
                         </li>
                         <li>
-                            <a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Upcoming</a>
+                            <a class="treeview-item" href="{% url 'calendarapp:running_events' %}"><i class="icon fa fa-circle-o"></i> Upcoming</a>
                         </li>
                         <li>
-                            <a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> All</a>
+                            <a class="treeview-item" href="{% url 'calendarapp:all_events' %}"><i class="icon fa fa-circle-o"></i> All</a>
                         </li>
                     </ul>
                 </li>
