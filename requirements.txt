@@ -1,8 +1,13 @@
 asgiref==3.2.10
+click==8.0.1
 Django==3.1.12
 flake8==3.9.2
 mccabe==0.6.1
+poetry-semver==0.1.0
 pycodestyle==2.7.0
 pyflakes==2.3.1
 pytz==2020.1
+PyYAML==5.4.1
+skjold==0.3.2
 sqlparse==0.3.1
+toml==0.10.2

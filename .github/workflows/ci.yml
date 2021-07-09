@@ -75,3 +75,8 @@ jobs:
       - name: Check coding style
         run: |
           flake8
+
+      # check vulnerable package
+      - name: Check vulnerable package
+        run: |
+          pip list --format=freeze | skjold -v audit --sources gemnasium -

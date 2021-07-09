@@ -1,0 +1,131 @@
+[tool.poetry]
+name = 'skjold'
+version = '0.3.2'
+description = 'Security audit Python project dependencies against security advisory databases.'
+authors = ["Thomas Wurmitzer <t.wurmitzer+github@gmail.com>"]
+packages = [{ include="skjold/**/*.py", from = "src" }]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/twu/skjold"
+repository = "https://github.com/twu/skjold"
+keywords = [
+    "security",
+    "security-vulnerability",
+    "vulnerability-scanners",
+    "vulnerabilities",
+    "vulnerability-detection"
+]
+# https://pypi.org/classifiers/
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Utilities",
+    "Topic :: Security",
+    "Typing :: Typed",
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/twu/skjold/issues"
+"Changelog" = "https://github.com/twu/skjold/releases"
+
+[tool.poetry.scripts]
+skjold = 'skjold.cli:cli'
+
+[tool.poetry.dependencies]
+python = "^3.6"
+click = ">=8,<9"
+poetry-semver = "^0.1.0"
+pyyaml = "^5.3"
+toml = ">=0.10.0"
+
+[tool.poetry.dev-dependencies]
+pytest-watch = "^4.2.0"
+pytest-sugar = "^0.9.4"
+pytest-mock = "^3.6.1"
+pre-commit = ">=1.20.0"
+black = ">=19.10b0"
+mypy = "^0.910"
+coverage = {extras = ["toml"], version = "^5.5"}
+pytest-cov = "^2.12.1"
+pytest = "^6.2.4"
+types-toml = "^0.1.2"
+types-PyYAML = "^5.4.3"
+
+[tool.skjold]
+report_only = false
+report_format = 'cli'
+sources = ["pyup", "github", "gemnasium", "osv", "pypa"]
+cache_dir = ".skjold_cache"
+cache_expires = 43200
+ignore_file = ".skjoldignore"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-s"
+log_cli_level = "INFO"
+testpaths = [
+    "tests",
+]
+filterwarnings = [
+  "ignore::DeprecationWarning",
+  "ignore::PendingDeprecationWarning",
+  "ignore::UserWarning",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py36', 'py37', 'py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.mypy]
+python_version = "3.7"
+files = ["src", "tests"]
+ignore_missing_imports = true
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
+disallow_untyped_calls = true
+follow_imports = "skip"
+no_implicit_optional = true
+warn_no_return = true
+strict_optional = true
+check_untyped_defs = true
+ignore_errors = false
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if __name__ == \"__main__\":",
+]
+
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"
