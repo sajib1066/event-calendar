@@ -9,7 +9,7 @@ repos:
         pass_filenames: false
      - id: run-django-tests
        name: Run Django Tests
-       entry: python manage.py test
+       entry: python manage.py test && flake8
        types: [ python ]
        language: system
        pass_filenames: false
