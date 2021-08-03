@@ -1,23 +1,36 @@
+# repos:
+#   - repo: local
+#     hooks:
+#       - id: check-django-migrations
+#         name: Check Django Migrations
+#         entry: python manage.py makemigrations --check --no-input
+#         types: [ python ]
+#         language: system
+#         pass_filenames: false
+#      - id: run-django-tests
+#        name: Run Django Tests
+#        entry: python manage.py test && flake8
+#        types: [ python ]
+#        language: system
+#        pass_filenames: false
+#   - repo: https://github.com/pre-commit/pre-commit-hooks
+#     rev: v2.3.0
+#     hooks:
+#       - id: check-merge-conflict
+#       - id: check-yaml
+#       - id: end-of-file-fixer
+#       - id: trailing-whitespace
+#       - id: requirements-txt-fixer
+
+
 repos:
-  - repo: local
-    hooks:
-      - id: check-django-migrations
-        name: Check Django Migrations
-        entry: python manage.py makemigrations --check --no-input
-        types: [ python ]
-        language: system
-        pass_filenames: false
-     - id: run-django-tests
-       name: Run Django Tests
-       entry: python manage.py test && flake8
-       types: [ python ]
-       language: system
-       pass_filenames: false
-  - repo: https://github.com/pre-commit/pre-commit-hooks
+-   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.3.0
     hooks:
-      - id: check-merge-conflict
-      - id: check-yaml
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
-      - id: requirements-txt-fixer
+    -   id: check-yaml
+    -   id: end-of-file-fixer
+    -   id: trailing-whitespace
+-   repo: https://github.com/psf/black
+    rev: 19.3b0
+    hooks:
+    -   id: black

@@ -4,4 +4,4 @@ from django.contrib.auth import logout
 
 def signout(request):
     logout(request)
-    return redirect('accounts:signin')
+    return redirect("accounts:signin")

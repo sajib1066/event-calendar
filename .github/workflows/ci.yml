@@ -52,7 +52,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
-      
+
       # Run migrations
       - name: Run migrations
         env:

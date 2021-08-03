@@ -10,7 +10,7 @@ Event Details
             <a class="btn btn-primary left" href="{% url 'calendarapp:calendar' %}"> Calendar </a>
             <a class="btn btn-info right mr-2" href="{% url 'calendarapp:event_edit' event.pk %}"> Edit Event </a>
         </div>
-        
+
         <div class="clearfix">
             <h3>Event Name: {{ event.title }}</h3>
             <p>From <span style="color: gray;">{{ event.start_time }}</span> To <span style="color: gray;">{{ event.end_time }}</span></p>
@@ -23,7 +23,7 @@ Event Details
             <a class="btn btn-success right" href="{% url 'calendarapp:add_eventmember' event.id %}"> Add Member </a>
         </div>
         <table class="table table-bordered">
-            <thead>                  
+            <thead>
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>Name</th>
