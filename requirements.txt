@@ -6,7 +6,7 @@ black==21.7b0
 click==8.0.1
 colorama==0.4.4
 commonmark==0.9.1
-Django==3.1.12
+Django==3.1.13
 django-doctor==2.5.0
 dparse==0.5.1
 flake8==3.9.2
