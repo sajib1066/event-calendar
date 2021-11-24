@@ -40,7 +40,7 @@ requests==2.26.0
 rich==10.6.0
 six==1.16.0
 skjold==0.3.2
-sqlparse==0.3.1
+sqlparse==0.4.2
 toml==0.10.2
 tomli==1.0.4
 urllib3==1.26.7
