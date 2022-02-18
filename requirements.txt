@@ -1,5 +1,5 @@
 appdirs==1.4.4
-asgiref==3.2.10
+asgiref==3.3.2
 astroid==2.6.2
 asttokens==2.0.5
 backports.entry-points-selectable==1.1.0
