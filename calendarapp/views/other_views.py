@@ -125,11 +125,13 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
             event_list.append(
                 {
                     "title": event.title,
-                    "start": event.start_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
-                    "end": event.end_time.date().strftime("%Y-%m-%dT%H:%M:%S"),
+                    "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
+                    "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+
                 }
             )
-        context = {"form": forms, "events": event_list, "events_month": events_month}
+        context = {"form": forms, "events": event_list,
+                   "events_month": events_month}
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
