@@ -13,7 +13,7 @@ commonmark==0.9.1
 distlib==0.3.2
 Django==3.2.14
 django-doctor==2.5.0
-dparse==0.5.1
+dparse==0.5.2
 filelock==3.0.12
 flake8==3.9.2
 identify==2.2.11
