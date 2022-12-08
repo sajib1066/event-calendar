@@ -4,7 +4,7 @@ astroid==2.6.2
 asttokens==2.0.5
 backports.entry-points-selectable==1.1.0
 black==21.7b0
-certifi==2021.10.8
+certifi==2022.12.7
 cfgv==3.3.0
 charset-normalizer==2.0.8
 click==8.0.1
