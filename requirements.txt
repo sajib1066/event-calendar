@@ -11,7 +11,7 @@ click==8.0.1
 colorama==0.4.4
 commonmark==0.9.1
 distlib==0.3.2
-Django==3.2.14
+Django==3.2.16
 django-doctor==2.5.0
 dparse==0.5.1
 filelock==3.0.12
