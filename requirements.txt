@@ -36,7 +36,7 @@ pyparsing==2.4.7
 pytz==2020.1
 PyYAML==5.4.1
 regex==2021.7.6
-requests==2.26.0
+requests==2.31.0
 rich==10.6.0
 six==1.16.0
 skjold==0.3.2
