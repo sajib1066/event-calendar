@@ -24,6 +24,8 @@ SECRET_KEY = "i8e1s3!_(fjsiv%1pn3sb3o=s)!p*nzwh1$gp5-l&%nb!d=y_s"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#DEBUG = False
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
 
 ALLOWED_HOSTS = ["*"]
 
@@ -82,6 +84,21 @@ DATABASES = {
     }
 }
 
+"""
+##CONECTAR CON POSTGRES
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'proyectoHadaMadrina',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'DATABASE_PORT': '5432',
+        
+    }
+}
+
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -114,7 +131,16 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
+"""
 STATIC_URL = "/static/"
-
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+"""
+
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+#STATIC_ROOT=os.path.join(BASE_DIR, 'static/')
+
+#
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/') # 'data' is my media folder
+MEDIA_URL = '/media/'
