@@ -12,7 +12,7 @@ colorama==0.4.4
 commonmark==0.9.1
 dill==0.3.7
 distlib==0.3.7
-Django==3.2.18
+Django==3.2.21
 django-bootstrap-v5==1.0.11
 dparse==0.6.3
 filelock==3.12.3
@@ -52,3 +52,4 @@ tzdata==2023.3
 urllib3==2.0.4
 virtualenv==20.24.4
 wrapt==1.15.0
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
