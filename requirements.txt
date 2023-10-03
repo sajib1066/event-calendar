@@ -49,7 +49,7 @@ toml==0.10.2
 tomli==2.0.1
 tomlkit==0.12.1
 tzdata==2023.3
-urllib3==2.0.4
+urllib3==2.0.6
 virtualenv==20.24.4
 wrapt==1.15.0
 setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
