@@ -12,7 +12,7 @@ colorama==0.4.4
 commonmark==0.9.1
 dill==0.3.7
 distlib==0.3.7
-Django==3.2.21
+Django==3.2.22
 django-bootstrap-v5==1.0.11
 dparse==0.6.3
 filelock==3.12.3
