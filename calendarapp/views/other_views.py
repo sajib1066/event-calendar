@@ -9,7 +9,8 @@ import calendar
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
-
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
 from calendarapp.models import EventMember, Event
 from calendarapp.utils import Calendar
@@ -110,6 +111,12 @@ class EventMemberDeleteView(generic.DeleteView):
     success_url = reverse_lazy("calendarapp:calendar")
 
 
+class EventDeleteView(generic.DeleteView):
+    model = Event
+    template_name = "calendarapp/calendar.html"
+    # success_url = reverse_lazy("calendarapp:calendar")
+
+
 class CalendarViewNew(LoginRequiredMixin, generic.View):
     login_url = "accounts:signin"
     template_name = "calendarapp/calendar.html"
@@ -123,13 +130,14 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
         # start: '2020-09-16T16:00:00'
         for event in events:
             event_list.append(
-                {
+                {   "id": event.id,
                     "title": event.title,
                     "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
                     "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
-
+                    "description": event.description,
                 }
             )
+        
         context = {"form": forms, "events": event_list,
                    "events_month": events_month}
         return render(request, self.template_name, context)
@@ -143,3 +151,13 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
             return redirect("calendarapp:calendar")
         context = {"form": forms}
         return render(request, self.template_name, context)
+
+
+
+def delete_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    if request.method == 'POST':
+        event.delete()
+        return JsonResponse({'message': 'Evento excluído com sucesso.'})
+    else:
+        return JsonResponse({'message': 'Método inválido para esta view.'}, status=400)
