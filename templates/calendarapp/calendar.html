@@ -224,7 +224,7 @@
       });
       function formatDateTime(dateTime) {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' };
-        const dataFormatada = new Date(dateTime).toLocaleDateString('pt-BR', options);
+        const dataFormatada = new Date(dateTime).toLocaleDateString('en-US', options);
         return dataFormatada;
       };
       document.getElementById('delete-event-button').addEventListener('click', function() {
@@ -241,7 +241,7 @@
                     window.location.reload();
                 },
                 error: function(xhr, status, error) {
-                    alert('Erro ao excluir o evento.');
+                    alert('Error!.');
                 }
             });
         }
