@@ -27,6 +27,8 @@
                     {% for event in events_month %}
                       <div class="fc-event">
                           <h3>{{ event.title }}</h3>
+                          <p>{{ event.description }}</p>
+                          <p>{{event.id}}</p>
                           <p>From: {{ event.start_time }}</p>
                           <p>To: {{ event.end_time }}</p>
                       </div>
@@ -76,6 +78,42 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade show" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header bg-primary">
+                          <h5 class="modal-title text-white" id="title_event_detail"></h5>
+                          <button id="modalDetailClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <form method="">
+                          {% csrf_token %}
+                          <div class="modal-body">
+                              
+                              <div class="form-group">
+                                  <label for="message-text" class="col-form-label">Description:</label>
+                                  <p id = "description_event_detail">
+
+                                  </p>
+                              </div>
+                              <div class="form-group">
+                                  <label for="message-text" class="col-form-label">Start:</label>
+                                  <p id = "start_event_detail">
+                              </div>
+                              <div class="form-group">
+                                  <label for="message-text" class="col-form-label">End:</label>
+                                  <p id = "end_event_detail">
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button id="delete-event-button" data-event-id="" type="button" class="btn btn-danger">Delete</button>
+                              <button type="" class="btn btn-primary">Edit</button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
         </div>
     </div>
 </div>
@@ -104,6 +142,7 @@
             modal.style.display = 'block'
             calendar.unselect()
           },
+          
           // THIS KEY WON'T WORK IN PRODUCTION!!!
           // To make your own Google API key, follow the directions here:
           // http://fullcalendar.io/docs/google_calendar/
@@ -112,9 +151,33 @@
           // bangladesh Holidays
           // events: 'bn.bd#holiday@group.v.calendar.google.com',
           eventClick: function(arg) {
-            if (confirm('Are you sure you want to delete this event?')) {
-              arg.event.remove()
-            }
+            
+            console.log('clicked')
+            var title = arg.event.title;
+            var start = formatDateTime(arg.event.start) ;
+            var end = formatDateTime(arg.event.end);
+            var description = arg.event.extendedProps.description || '';
+            var id = arg.event.id;
+
+            var modalInputEnd = document.getElementById('end_event_detail'); 
+
+            var modal = document.getElementById('detailModal')
+            var modalTitle = document.getElementById('title_event_detail'); 
+            var modalStart = document.getElementById('start_event_detail'); 
+            var modalEnd = document.getElementById('end_event_detail'); 
+            var modalDescripition = document.getElementById('description_event_detail'); 
+            var deleteButton = document.getElementById("delete-event-button");
+
+            deleteButton.setAttribute("data-event-id", id);
+            modal.style.display = 'block' 
+            
+            modalTitle.textContent = title;
+            modalStart.textContent = start;
+            modalEnd.textContent = end;
+            modalDescripition.textContent = description;
+            
+           
+            modal.style.display = 'block';
           },
           editable: true,
           dayMaxEvents: true, // allow "more" link when too many events
@@ -146,6 +209,7 @@
       });
       const closeBtn1 = document.getElementById('modalClose1');
       const closeBtn2 = document.getElementById('modalClose2');
+      const closeBtn3 = document.getElementById('modalDetailClose');
       closeBtn1.addEventListener('click',()=>{
         const eventModal = document.getElementById('eventModal')
         eventModal.style.display = 'none';
@@ -154,5 +218,34 @@
         const eventModal = document.getElementById('eventModal')
         eventModal.style.display = 'none';
       });
+      closeBtn3.addEventListener('click',()=>{
+        const eventModal = document.getElementById('detailModal')
+        eventModal.style.display = 'none';
+      });
+      function formatDateTime(dateTime) {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' };
+        const dataFormatada = new Date(dateTime).toLocaleDateString('en-US', options);
+        return dataFormatada;
+      };
+      document.getElementById('delete-event-button').addEventListener('click', function() {
+        const eventId = this.getAttribute('data-event-id');
+        if (confirm('Are you sure you want to delete this event?')) {
+            $.ajax({
+                url: `/delete_event/${eventId}/`,
+                type: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                },
+                success: function(response) {
+                    alert(response.message);
+                    window.location.reload();
+                },
+                error: function(xhr, status, error) {
+                    alert('Error!.');
+                }
+            });
+        }
+    });
+
   </script>
 {% endblock extrascripts %}

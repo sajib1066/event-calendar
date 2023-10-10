@@ -1,6 +1,5 @@
 appdirs==1.4.4
 asgiref==3.3.2
-astroid==2.6.2
 asttokens==2.0.5
 backports.entry-points-selectable==1.1.0
 black==21.7b0
@@ -8,7 +7,6 @@ certifi==2022.12.7
 cfgv==3.3.0
 charset-normalizer==2.0.8
 click==8.0.1
-colorama==0.4.4
 commonmark==0.9.1
 dill==0.3.7
 distlib==0.3.7
@@ -46,10 +44,7 @@ skjold==0.6.1
 soupsieve==2.4.1
 sqlparse==0.4.4
 toml==0.10.2
-tomli==2.0.1
 tomlkit==0.12.1
 tzdata==2023.3
 urllib3==2.0.4
-virtualenv==20.24.4
-wrapt==1.15.0
-setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
+setuptools>=65.5.1
