@@ -108,7 +108,9 @@
                           </div>
                           <div class="modal-footer">
                               <button id="delete-event-button" data-event-id="" type="button" class="btn btn-danger">Delete</button>
-                              <button type="" class="btn btn-primary">Edit</button>
+                              <button id="add-to-next-week" data-event-id-week="" type="button" class="btn btn-success">Next Week</button>
+                              <button id="add-to-next-day" data-event-id-day="" type="button" class="btn btn-primary">Next Day</button>
+
                           </div>
                       </form>
                   </div>
@@ -119,133 +121,194 @@
 </div>
 {% endblock content %}
 
+
 {% block extrascripts %}
-  <script src="{% static 'calender/main.js' %}"></script>
-  <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var today = new Date();
+<script src="{% static 'calender/main.js' %}"></script>
+<script>
+  function converterDataParaDjangoFormat(data) {
+      const dataJS = new Date(data);
+      const ano = dataJS.getFullYear();
+      const mes = (dataJS.getMonth() + 1).toString().padStart(2, '0');
+      const dia = dataJS.getDate().toString().padStart(2, '0');
+      const hora = dataJS.getHours().toString().padStart(2, '0');
+      const minuto = dataJS.getMinutes().toString().padStart(2, '0');
+      const segundo = dataJS.getSeconds().toString().padStart(2, '0');
+      const formatoDjango = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
+      return formatoDjango;
+  }
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var today = new Date();
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
-          },
-          initialDate: today,
-          navLinks: true, // can click day/week names to navigate views
-          selectable: true,
-          selectMirror: true,
-          select: function(arg) {
-            console.log('clicked')
-            var modal = document.getElementById('eventModal')
-            modal.style.display = 'block'
-            calendar.unselect()
-          },
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay,list'
+        },
+        initialDate: today,
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectMirror: true,
+        select: function(arg) {
+          console.log('clicked')
+          console.log(arg.start)
+          console.log(arg.end)
+          var modal = document.getElementById('eventModal')
+          modal.style.display = 'block'
+          document.getElementById('id_start_time').value = converterDataParaDjangoFormat(arg.start);
+          document.getElementById('id_end_time').value = converterDataParaDjangoFormat(arg.end);
+          calendar.unselect()
+        },
+        
+        // THIS KEY WON'T WORK IN PRODUCTION!!!
+        // To make your own Google API key, follow the directions here:
+        // http://fullcalendar.io/docs/google_calendar/
+        // googleCalendarApiKey: 'AIzaSyCqCxjjLtjbtkX37aOtWB8OfwBLy_6QuYk',
+
+        // bangladesh Holidays
+        // events: 'bn.bd#holiday@group.v.calendar.google.com',
+        eventClick: function(arg) {
           
-          // THIS KEY WON'T WORK IN PRODUCTION!!!
-          // To make your own Google API key, follow the directions here:
-          // http://fullcalendar.io/docs/google_calendar/
-          // googleCalendarApiKey: 'AIzaSyCqCxjjLtjbtkX37aOtWB8OfwBLy_6QuYk',
+          console.log('clicked')
+          var title = arg.event.title;
+          var start = formatDateTime(arg.event.start) ;
+          var end = formatDateTime(arg.event.end);
+          var description = arg.event.extendedProps.description || '';
+          var id = arg.event.id;
 
-          // bangladesh Holidays
-          // events: 'bn.bd#holiday@group.v.calendar.google.com',
-          eventClick: function(arg) {
-            
-            console.log('clicked')
-            var title = arg.event.title;
-            var start = formatDateTime(arg.event.start) ;
-            var end = formatDateTime(arg.event.end);
-            var description = arg.event.extendedProps.description || '';
-            var id = arg.event.id;
+          var modalInputEnd = document.getElementById('end_event_detail'); 
 
-            var modalInputEnd = document.getElementById('end_event_detail'); 
+          var modal = document.getElementById('detailModal')
+          var modalTitle = document.getElementById('title_event_detail'); 
+          var modalStart = document.getElementById('start_event_detail'); 
+          var modalEnd = document.getElementById('end_event_detail'); 
+          var modalDescripition = document.getElementById('description_event_detail'); 
+          var deleteButton = document.getElementById("delete-event-button");
+          var nextWeek = document.getElementById("add-to-next-week");
+          var nextDay = document.getElementById("add-to-next-day");
 
-            var modal = document.getElementById('detailModal')
-            var modalTitle = document.getElementById('title_event_detail'); 
-            var modalStart = document.getElementById('start_event_detail'); 
-            var modalEnd = document.getElementById('end_event_detail'); 
-            var modalDescripition = document.getElementById('description_event_detail'); 
-            var deleteButton = document.getElementById("delete-event-button");
-
-            deleteButton.setAttribute("data-event-id", id);
-            modal.style.display = 'block' 
-            
-            modalTitle.textContent = title;
-            modalStart.textContent = start;
-            modalEnd.textContent = end;
-            modalDescripition.textContent = description;
-            
-           
-            modal.style.display = 'block';
-          },
-          editable: true,
-          dayMaxEvents: true, // allow "more" link when too many events
-          events: {{ events|safe }},
-          // events: [
-          //   {
-          //     title: 'All Day Event',
-          //     start: '2021-06-26'
-          //   },
-          //   {
-          //     groupId: 999,
-          //     title: 'Repeating Event',
-          //     start: '2020-09-16T16:00:00'
-          //   },
-          //   {
-          //     title: 'Conference',
-          //     start: '2020-09-11',
-          //     end: '2020-09-13'
-          //   },
-          //   {
-          //     title: 'Click for Google',
-          //     url: 'http://google.com/',
-          //     start: '2020-09-28'
-          //   }
-          // ]
-        });
-
-        calendar.render();
+          deleteButton.setAttribute("data-event-id", id);
+          nextWeek.setAttribute("data-event-id-week", id);
+          nextDay.setAttribute("data-event-id-day", id);
+          modal.style.display = 'block' 
+          
+          modalTitle.textContent = title;
+          modalStart.textContent = start;
+          modalEnd.textContent = end;
+          modalDescripition.textContent = description;
+          
+         
+          modal.style.display = 'block';
+        },
+        editable: true,
+        dayMaxEvents: true, // allow "more" link when too many events
+        events: {{ events|safe }},
+        // events: [
+        //   {
+        //     title: 'All Day Event',
+        //     start: '2021-06-26'
+        //   },
+        //   {
+        //     groupId: 999,
+        //     title: 'Repeating Event',
+        //     start: '2020-09-16T16:00:00'
+        //   },
+        //   {
+        //     title: 'Conference',
+        //     start: '2020-09-11',
+        //     end: '2020-09-13'
+        //   },
+        //   {
+        //     title: 'Click for Google',
+        //     url: 'http://google.com/',
+        //     start: '2020-09-28'
+        //   }
+        // ]
       });
-      const closeBtn1 = document.getElementById('modalClose1');
-      const closeBtn2 = document.getElementById('modalClose2');
-      const closeBtn3 = document.getElementById('modalDetailClose');
-      closeBtn1.addEventListener('click',()=>{
-        const eventModal = document.getElementById('eventModal')
-        eventModal.style.display = 'none';
-      });
-      closeBtn2.addEventListener('click',()=>{
-        const eventModal = document.getElementById('eventModal')
-        eventModal.style.display = 'none';
-      });
-      closeBtn3.addEventListener('click',()=>{
-        const eventModal = document.getElementById('detailModal')
-        eventModal.style.display = 'none';
-      });
-      function formatDateTime(dateTime) {
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' };
-        const dataFormatada = new Date(dateTime).toLocaleDateString('en-US', options);
-        return dataFormatada;
-      };
-      document.getElementById('delete-event-button').addEventListener('click', function() {
-        const eventId = this.getAttribute('data-event-id');
-        if (confirm('Are you sure you want to delete this event?')) {
-            $.ajax({
-                url: `/delete_event/${eventId}/`,
-                type: 'POST',
-                data: {
-                    csrfmiddlewaretoken: '{{ csrf_token }}',
-                },
-                success: function(response) {
-                    alert(response.message);
-                    window.location.reload();
-                },
-                error: function(xhr, status, error) {
-                    alert('Error!.');
-                }
-            });
-        }
+
+      calendar.render();
     });
+    const closeBtn1 = document.getElementById('modalClose1');
+    const closeBtn2 = document.getElementById('modalClose2');
+    const closeBtn3 = document.getElementById('modalDetailClose');
+    closeBtn1.addEventListener('click',()=>{
+      const eventModal = document.getElementById('eventModal')
+      eventModal.style.display = 'none';
+    });
+    closeBtn2.addEventListener('click',()=>{
+      const eventModal = document.getElementById('eventModal')
+      eventModal.style.display = 'none';
+    });
+    closeBtn3.addEventListener('click',()=>{
+      const eventModal = document.getElementById('detailModal')
+      eventModal.style.display = 'none';
+    });
+    function formatDateTime(dateTime) {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' };
+      const dataFormatada = new Date(dateTime).toLocaleDateString('pt-BR', options);
+      return dataFormatada;
+    };
+    document.getElementById('delete-event-button').addEventListener('click', function() {
+      const eventId = this.getAttribute('data-event-id');
+      if (confirm('Are you sure you want to delete this event?')) {
+          $.ajax({
+              url: `/delete_event/${eventId}/`,
+              type: 'POST',
+              data: {
+                  csrfmiddlewaretoken: '{{ csrf_token }}',
+              },
+              success: function(response) {
+                  alert(response.message);
+                  window.location.reload();
+              },
+              error: function(xhr, status, error) {
+                  alert('Error!');
+              }
+          
+          });
+      }});
+      
+      document.getElementById('add-to-next-week').addEventListener('click', function() {
+          const eventId = this.getAttribute('data-event-id-week');
+          if (confirm('Are you sure you want add this event to next week?')) {
+              $.ajax({
+                url: `/next_week/${eventId}/`,
+                  type: 'POST',
+                  data: {
+                      csrfmiddlewaretoken: '{{ csrf_token }}',
+                  },
+                  success: function(response) {
+                      alert(response.message);
+                      window.location.reload();
+                  },
+                  error: function(xhr, status, error) {
+                      alert('Error!');
+                  }
+              });
+          }
+  });
 
-  </script>
+  document.getElementById('add-to-next-day').addEventListener('click', function() {
+    const eventId = this.getAttribute('data-event-id-day');
+    if (confirm('Are you sure you want add this event to next day?')) {
+        $.ajax({
+          url: `/next_day/${eventId}/`,
+            type: 'POST',
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            success: function(response) {
+                alert(response.message);
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert('Error!');
+            }
+        });
+    }
+});
+
+</script>
 {% endblock extrascripts %}
+

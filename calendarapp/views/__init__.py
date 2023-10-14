@@ -8,6 +8,8 @@ from .other_views import (
     add_eventmember,
     EventMemberDeleteView,
     delete_event,
+    next_week,
+    next_day,
 )
 
 
@@ -22,4 +24,6 @@ __all__ = [
     add_eventmember,
     EventMemberDeleteView,
     delete_event,
+    next_week,
+    next_day,
 ]
