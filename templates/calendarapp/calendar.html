@@ -13,7 +13,7 @@
   </div>
   <ul class="app-breadcrumb breadcrumb">
       <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      <li class="breadcrumb-item"><a href="#">Calendar</a></li>
+      <li class="breadcrumb-item"><a >Calendar</a></li>
   </ul>
 {% endblock breadcrumb %}
 
@@ -127,14 +127,15 @@
 <script>
   function converterDataParaDjangoFormat(data) {
       const dataJS = new Date(data);
-      const ano = dataJS.getFullYear();
-      const mes = (dataJS.getMonth() + 1).toString().padStart(2, '0');
-      const dia = dataJS.getDate().toString().padStart(2, '0');
-      const hora = dataJS.getHours().toString().padStart(2, '0');
-      const minuto = dataJS.getMinutes().toString().padStart(2, '0');
-      const segundo = dataJS.getSeconds().toString().padStart(2, '0');
-      const formatoDjango = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
+      const year = dataJS.getFullYear();
+      const month = (dataJS.getMonth() + 1).toString().padStart(2, '0');
+      const day = dataJS.getDate().toString().padStart(2, '0');
+      const hour = dataJS.getHours().toString().padStart(2, '0');
+      const minute = dataJS.getMinutes().toString().padStart(2, '0');
+      const second = dataJS.getSeconds().toString().padStart(2, '0');
+      const formatoDjango = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
       return formatoDjango;
+      
   }
     document.addEventListener('DOMContentLoaded', function() {
       var calendarEl = document.getElementById('calendar');
@@ -246,7 +247,7 @@
     });
     function formatDateTime(dateTime) {
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' };
-      const dataFormatada = new Date(dateTime).toLocaleDateString('pt-BR', options);
+      const dataFormatada = new Date(dateTime).toLocaleDateString('en-US', options);
       return dataFormatada;
     };
     document.getElementById('delete-event-button').addEventListener('click', function() {
