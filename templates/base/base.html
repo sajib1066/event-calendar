@@ -28,17 +28,17 @@
     <body class="app sidebar-mini">
         <!-- Navbar-->
         <header class="app-header">
-            <a class="app-header__logo" href="#">Event Calendar</a>
+            <a class="app-header__logo" href="{% url 'calendarapp:calendar' %}">Event Calendar</a>
             <!-- Sidebar toggle button-->
             <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
             <!-- Navbar Right Menu-->
             <ul class="app-nav">
-                <li class="app-search">
+                <!-- <li class="app-search">
                     <input class="app-search__input" type="search" placeholder="Search" />
                     <button class="app-search__button"><i class="fa fa-search"></i></button>
-                </li>
+                </li> -->
                 <!--Notification Menu-->
-                <li class="dropdown">
+                <!-- <li class="dropdown">
                     <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Show notifications"><i class="fa fa-bell-o fa-lg"></i></a>
                     <ul class="app-notification dropdown-menu dropdown-menu-right">
                         <li class="app-notification__title">You have 4 new notifications.</li>
@@ -114,17 +114,17 @@
                         </div>
                         <li class="app-notification__footer"><a href="#">See all notifications.</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <!-- User Menu-->
                 <li class="dropdown">
                     <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
                     <ul class="dropdown-menu settings-menu dropdown-menu-right">
-                        <li>
+                        <!-- <li>
                             <a class="dropdown-item" href="#"><i class="fa fa-cog fa-lg"></i> Settings</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="#"><i class="fa fa-user fa-lg"></i> Profile</a>
-                        </li>
+                        </li> -->
                         <li>
                             <a class="dropdown-item" href="{% url 'accounts:signout' %}"><i class="fa fa-sign-out fa-lg"></i> Sign Out</a>
                         </li>
@@ -135,16 +135,16 @@
         <!-- Sidebar menu-->
         <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
         <aside class="app-sidebar">
-            <div class="app-sidebar__user">
+            <!-- <div class="app-sidebar__user">
                 <img class="app-sidebar__user-avatar" src="https://sajib1066.github.io/images/me.jpg" alt="User Image" height="50px" width="50px"/>
                 <div>
                     <p class="app-sidebar__user-name">Sajib Hossain</p>
                     <p class="app-sidebar__user-designation">Software Engineer</p>
                 </div>
-            </div>
+            </div> -->
             <ul class="app-menu">
                 <li>
-                    <a class="app-menu__item active" href="{% url 'dashboard' %}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a>
+                    <a class="app-menu__item" href="{% url 'dashboard' %}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a>
                 </li>
                 <li>
                     <a class="app-menu__item" href="{% url 'calendarapp:calendar' %}"><i class="app-menu__icon fa fa-calendar"></i><span class="app-menu__label">Calendar</span></a>
@@ -156,16 +156,19 @@
                             <a class="treeview-item" href="{% url 'calendarapp:running_events' %}"><i class="icon fa fa-circle-o"></i> Running</a>
                         </li>
                         <li>
-                            <a class="treeview-item" href="{% url 'calendarapp:running_events' %}"><i class="icon fa fa-circle-o"></i> Upcoming</a>
+                            <a class="treeview-item" href="{% url 'calendarapp:upcoming_events' %}"><i class="icon fa fa-circle-o"></i> Upcoming</a>
+                        </li>
+                        <li>
+                            <a class="treeview-item" href="{% url 'calendarapp:completed_events' %}"><i class="icon fa fa-circle-o"></i> Completed</a>
                         </li>
                         <li>
                             <a class="treeview-item" href="{% url 'calendarapp:all_events' %}"><i class="icon fa fa-circle-o"></i> All</a>
                         </li>
                     </ul>
                 </li>
-                <li>
+                <!-- <li>
                     <a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-file-code-o"></i><span class="app-menu__label">Docs</span></a>
-                </li>
+                </li> -->
             </ul>
         </aside>
         <main class="app-content">
