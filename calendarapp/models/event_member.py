@@ -14,6 +14,8 @@ class EventMember(EventAbstract):
 
     class Meta:
         unique_together = ["event", "user"]
+        verbose_name = "Участник события"
+        verbose_name_plural = "Участники событий"
 
     def __str__(self):
         return str(self.user)

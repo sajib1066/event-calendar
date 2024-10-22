@@ -8,8 +8,8 @@
 
 {% block breadcrumb %}
   <div>
-      <h1><i class="fa fa-calendar"></i> Calendar</h1>
-      <p>Event Calendar</p>
+      <h1><i class="fa fa-calendar"></i> Календарь</h1>
+      <p>Календарь событий</p>
   </div>
   <ul class="app-breadcrumb breadcrumb">
       <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -23,17 +23,17 @@
         <div class="tile row">
             <div class="col-md-3">
                 <div id="external-events">
-                    <h4 class="mb-4">Running Events</h4>
+                    <h4 class="mb-4">Текущие события</h4>
                     {% for event in events_month %}
                       <div class="fc-event">
                           <h3>{{ event.title }}</h3>
                           <p>{{ event.description }}</p>
                           <p>{{event.id}}</p>
-                          <p>From: {{ event.start_time }}</p>
-                          <p>To: {{ event.end_time }}</p>
+                          <p>С: {{ event.start_time }}</p>
+                          <p>До: {{ event.end_time }}</p>
                       </div>
                     {% empty %}
-                      <p>No Running Events Found</p>
+                      <p>Событий не найдено</p>
                     {% endfor %}
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
-                            <h5 class="modal-title text-white" id="exampleModalLongTitle">Add New Event</h5>
+                            <h5 class="modal-title text-white" id="exampleModalLongTitle">Добавить новое событие</h5>
                             <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -54,25 +54,25 @@
                             {% csrf_token %}
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Event Title:</label>
+                                    <label for="recipient-name" class="col-form-label">Название события:</label>
                                     {{ form.title }}
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">Description:</label>
+                                    <label for="message-text" class="col-form-label">Описание:</label>
                                     {{ form.description }}
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">Start Date:</label>
+                                    <label for="message-text" class="col-form-label">Время начала:</label>
                                     {{ form.start_time }}
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">End Date:</label>
+                                    <label for="message-text" class="col-form-label">Время окончания:</label>
                                     {{ form.end_time }}
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button id="modalClose2" type="button" class="btn btn-danger">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button id="modalClose2" type="button" class="btn btn-danger">Закрыть</button>
+                                <button type="submit" class="btn btn-primary">Сохранить</button>
                             </div>
                         </form>
                     </div>
@@ -92,24 +92,24 @@
                           <div class="modal-body">
                               
                               <div class="form-group">
-                                  <label for="message-text" class="col-form-label">Description:</label>
+                                  <label for="message-text" class="col-form-label">Описание:</label>
                                   <p id = "description_event_detail">
 
                                   </p>
                               </div>
                               <div class="form-group">
-                                  <label for="message-text" class="col-form-label">Start:</label>
+                                  <label for="message-text" class="col-form-label">Начало:</label>
                                   <p id = "start_event_detail">
                               </div>
                               <div class="form-group">
-                                  <label for="message-text" class="col-form-label">End:</label>
+                                  <label for="message-text" class="col-form-label">Окончание:</label>
                                   <p id = "end_event_detail">
                               </div>
                           </div>
                           <div class="modal-footer">
-                              <button id="delete-event-button" data-event-id="" type="button" class="btn btn-danger">Delete</button>
-                              <button id="add-to-next-week" data-event-id-week="" type="button" class="btn btn-success">Next Week</button>
-                              <button id="add-to-next-day" data-event-id-day="" type="button" class="btn btn-primary">Next Day</button>
+                              <button id="delete-event-button" data-event-id="" type="button" class="btn btn-danger">Удалить</button>
+                              <button id="add-to-next-week" data-event-id-week="" type="button" class="btn btn-success">На следующую неделю</button>
+                              <button id="add-to-next-day" data-event-id-day="" type="button" class="btn btn-primary">На следующий день</button>
 
                           </div>
                       </form>

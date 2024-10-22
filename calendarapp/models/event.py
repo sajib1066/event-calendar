@@ -19,10 +19,10 @@ class EventManager(models.Manager):
             is_active=True,
             is_deleted=False,
             end_time__gte=datetime.now().date(),
-            start_time__lte = datetime.now().date()
+            start_time__lte=datetime.now().date()
         ).order_by("start_time")
         return running_events
-    
+
     def get_completed_events(self, user):
         completed_events = Event.objects.filter(
             user=user,
@@ -31,7 +31,7 @@ class EventManager(models.Manager):
             end_time__lt=datetime.now().date(),
         )
         return completed_events
-    
+
     def get_upcoming_events(self, user):
         upcoming_events = Event.objects.filter(
             user=user,
