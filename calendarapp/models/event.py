@@ -46,10 +46,17 @@ class Event(EventAbstract):
     """ Event model """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="events")
+    trainer = models.ForeignKey(
+        "sport.Trainer", on_delete=models.SET_NULL, related_name="events", null=True
+    )
     title = models.CharField(max_length=200)
     description = models.TextField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+    direction = models.ForeignKey(
+        "sport.Direction", on_delete=models.SET_NULL, related_name="events", null=True
+    )
+    max_participants = models.PositiveIntegerField(null=True)
 
     objects = EventManager()
 

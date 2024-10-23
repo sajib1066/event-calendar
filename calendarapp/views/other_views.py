@@ -110,6 +110,7 @@ class EventMemberDeleteView(generic.DeleteView):
     template_name = "event_delete.html"
     success_url = reverse_lazy("calendarapp:calendar")
 
+
 class CalendarViewNew(LoginRequiredMixin, generic.View):
     login_url = "accounts:signin"
     template_name = "calendarapp/calendar.html"
@@ -123,14 +124,14 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
         # start: '2020-09-16T16:00:00'
         for event in events:
             event_list.append(
-                {   "id": event.id,
-                    "title": event.title,
-                    "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
-                    "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
-                    "description": event.description,
-                }
+                {"id": event.id,
+                 "title": event.title,
+                 "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
+                 "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
+                 "description": event.description,
+                 }
             )
-        
+
         context = {"form": forms, "events": event_list,
                    "events_month": events_month}
         return render(request, self.template_name, context)
@@ -146,7 +147,6 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
         return render(request, self.template_name, context)
 
 
-
 def delete_event(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     if request.method == 'POST':
@@ -154,6 +154,7 @@ def delete_event(request, event_id):
         return JsonResponse({'message': 'Event sucess delete.'})
     else:
         return JsonResponse({'message': 'Error!'}, status=400)
+
 
 def next_week(request, event_id):
     event = get_object_or_404(Event, id=event_id)
@@ -167,8 +168,8 @@ def next_week(request, event_id):
     else:
         return JsonResponse({'message': 'Error!'}, status=400)
 
-def next_day(request, event_id):
 
+def next_day(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     if request.method == 'POST':
         next = event
