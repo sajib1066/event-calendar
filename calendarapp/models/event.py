@@ -8,6 +8,9 @@ from accounts.models import User
 
 class EventManager(models.Manager):
     """ Event manager """
+    def __init__(self):
+        super().__init__()
+        self.now = datetime.now()
 
     def get_all_events(self, user):
         events = Event.objects.filter(user=user, is_active=True, is_deleted=False)
@@ -18,8 +21,8 @@ class EventManager(models.Manager):
             user=user,
             is_active=True,
             is_deleted=False,
-            end_time__gte=datetime.now().date(),
-            start_time__lte=datetime.now().date()
+            end_time__gte=self.now,
+            start_time__lte=self.now
         ).order_by("start_time")
         return running_events
 
@@ -28,7 +31,7 @@ class EventManager(models.Manager):
             user=user,
             is_active=True,
             is_deleted=False,
-            end_time__lt=datetime.now().date(),
+            end_time__lt=self.now,
         )
         return completed_events
 
@@ -37,7 +40,7 @@ class EventManager(models.Manager):
             user=user,
             is_active=True,
             is_deleted=False,
-            start_time__gt=datetime.now().date(),
+            start_time__gt=self.now,
         )
         return upcoming_events
 

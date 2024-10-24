@@ -22,6 +22,7 @@ class RunningEventsListView(ListView):
     def get_queryset(self):
         return Event.objects.get_running_events(user=self.request.user)
 
+
 class UpcomingEventsListView(ListView):
     """ Upcoming events list view """
 
@@ -30,7 +31,8 @@ class UpcomingEventsListView(ListView):
 
     def get_queryset(self):
         return Event.objects.get_upcoming_events(user=self.request.user)
-    
+
+
 class CompletedEventsListView(ListView):
     """ Completed events list view """
 
@@ -39,6 +41,3 @@ class CompletedEventsListView(ListView):
 
     def get_queryset(self):
         return Event.objects.get_completed_events(user=self.request.user)
-    
-
-
