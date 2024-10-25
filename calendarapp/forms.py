@@ -29,7 +29,7 @@ class EventForm(ModelForm):
                 format="%Y-%m-%dT%H:%M",
             ),
             "max_participants": forms.NumberInput(
-                attrs={"class": "form-control", "placeholder": "Введите максимальное количество участников"}
+                attrs={"class": "form-control", "placeholder": "Введите максимальное количество участников(опционально)"}
             ),
             "trainer": forms.Select(attrs={"class": "form-control"}),
             "direction": forms.Select(attrs={"class": "form-control"})

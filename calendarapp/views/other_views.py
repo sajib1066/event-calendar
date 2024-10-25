@@ -70,11 +70,9 @@ def create_event(request):
             user=request.user,
             title=title,
             description=description,
-
             trainer=trainer,
             direction=direction,
             max_participants=max_participants,
-
             start_time=start_time,
             end_time=end_time,
         )
@@ -137,9 +135,9 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
                  "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
                  "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
                  "description": event.description,
-                 "trainer": event.trainer,
-                 "direction": event.direction,
-                 "max_participants": event.max_participants,
+                 # "trainer": event.trainer,
+                 # "direction": event.direction,
+                 # "max_participants": event.max_participants,
                  }
             )
 
