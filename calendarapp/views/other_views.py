@@ -135,7 +135,7 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
                  "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
                  "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
                  "description": event.description,
-                 # "trainer": event.trainer,
+                 "trainer": f"{event.trainer}",
                  # "direction": event.direction,
                  # "max_participants": event.max_participants,
                  }

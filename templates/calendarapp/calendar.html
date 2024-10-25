@@ -114,6 +114,11 @@
                                     </p>
                                 </div>
                                 <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Тренер:</label>
+                                    <p id="trainer_event">
+                                    </p>
+                                </div>
+                                <div class="form-group">
                                     <label for="message-text" class="col-form-label">Начало:</label>
                                     <p id="start_event_detail">
                                 </div>
@@ -202,6 +207,7 @@
             var start = formatDateTime(arg.event.start) ;
             var end = formatDateTime(arg.event.end);
             var description = arg.event.extendedProps.description || '';
+            var trainer = arg.event.extendedProps.trainer || '';
             var id = arg.event.id;
 
             var modalInputEnd = document.getElementById('end_event_detail');
@@ -210,7 +216,8 @@
             var modalTitle = document.getElementById('title_event_detail');
             var modalStart = document.getElementById('start_event_detail');
             var modalEnd = document.getElementById('end_event_detail');
-            var modalDescripition = document.getElementById('description_event_detail');
+            var modalDescription = document.getElementById('description_event_detail');
+            var modalTrainer = document.getElementById('trainer_event');
             var deleteButton = document.getElementById("delete-event-button");
             var nextWeek = document.getElementById("add-to-next-week");
             var nextDay = document.getElementById("add-to-next-day");
@@ -223,7 +230,8 @@
             modalTitle.textContent = title;
             modalStart.textContent = start;
             modalEnd.textContent = end;
-            modalDescripition.textContent = description;
+            modalDescription.textContent = description;
+            modalTrainer.textContent = trainer;
 
 
             modal.style.display = 'block';
