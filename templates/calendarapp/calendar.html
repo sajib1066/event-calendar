@@ -3,18 +3,18 @@
 {% block title %}Event Calendar{% endblock title %}
 
 {% block extracss %}
-  <link href="{% static 'calender/main.css' %}" rel="stylesheet" />
+<link href="{% static 'calender/main.css' %}" rel="stylesheet"/>
 {% endblock extracss %}
 
 {% block breadcrumb %}
-  <div>
-      <h1><i class="fa fa-calendar"></i> Календарь</h1>
-      <p>Календарь событий</p>
-  </div>
-  <ul class="app-breadcrumb breadcrumb">
-      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      <li class="breadcrumb-item"><a >Calendar</a></li>
-  </ul>
+<div>
+    <h1><i class="fa fa-calendar"></i> Календарь</h1>
+    <p>Календарь событий</p>
+</div>
+<ul class="app-breadcrumb breadcrumb">
+    <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+    <li class="breadcrumb-item"><a>Calendar</a></li>
+</ul>
 {% endblock breadcrumb %}
 
 {% block content %}
@@ -25,15 +25,15 @@
                 <div id="external-events">
                     <h4 class="mb-4">Текущие события</h4>
                     {% for event in events_month %}
-                      <div class="fc-event">
-                          <h3>{{ event.title }}</h3>
-                          <p>{{ event.description }}</p>
-                          <p>{{event.id}}</p>
-                          <p>С: {{ event.start_time }}</p>
-                          <p>До: {{ event.end_time }}</p>
-                      </div>
+                    <div class="fc-event">
+                        <h3>{{ event.title }}</h3>
+                        <p>{{ event.direction }}</p>
+                        <p>{{ event.trainer }}</p>
+                        <p>С: {{ event.start_time }}</p>
+                        <p>До: {{ event.end_time }}</p>
+                    </div>
                     {% empty %}
-                      <p>Событий не найдено</p>
+                    <p>Событий не найдено</p>
                     {% endfor %}
                 </div>
             </div>
@@ -41,12 +41,14 @@
                 <div id="calendar"></div>
             </div>
 
-            <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade show" id="eventModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header bg-primary">
                             <h5 class="modal-title text-white" id="exampleModalLongTitle">Добавить новое событие</h5>
-                            <button id="modalClose1" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button id="modalClose1" type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -110,11 +112,11 @@
                               <button id="add-to-next-week" data-event-id-week="" type="button" class="btn btn-success">На следующую неделю</button>
                               <button id="add-to-next-day" data-event-id-day="" type="button" class="btn btn-primary">На следующий день</button>
 
-                          </div>
-                      </form>
-                  </div>
-              </div>
-          </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

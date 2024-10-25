@@ -61,12 +61,20 @@ def create_event(request):
     if request.POST and form.is_valid():
         title = form.cleaned_data["title"]
         description = form.cleaned_data["description"]
+        trainer = form.cleaned_data["trainer"]
+        direction = form.cleaned_data["direction"]
+        max_participants = form.cleaned_data["max_participants"]
         start_time = form.cleaned_data["start_time"]
         end_time = form.cleaned_data["end_time"]
         Event.objects.get_or_create(
             user=request.user,
             title=title,
             description=description,
+
+            trainer=trainer,
+            direction=direction,
+            max_participants=max_participants,
+
             start_time=start_time,
             end_time=end_time,
         )
@@ -76,7 +84,7 @@ def create_event(request):
 
 class EventEdit(generic.UpdateView):
     model = Event
-    fields = ["title", "description", "start_time", "end_time"]
+    fields = ["title", "description", "trainer", "direction", "max_participants", "start_time", "end_time"]
     template_name = "event.html"
 
 
@@ -129,6 +137,9 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
                  "start": event.start_time.strftime("%Y-%m-%dT%H:%M:%S"),
                  "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
                  "description": event.description,
+                 "trainer": event.trainer,
+                 "direction": event.direction,
+                 "max_participants": event.max_participants,
                  }
             )
 
@@ -177,6 +188,25 @@ def next_day(request, event_id):
         next.start_time += timedelta(days=1)
         next.end_time += timedelta(days=1)
         next.save()
+        return JsonResponse({'message': 'Sucess!'})
+    else:
+        return JsonResponse({'message': 'Error!'}, status=400)
+
+
+def copy_event(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    if request.method == 'POST':
+        new_event = Event(
+            user=request.user,
+            title=f'{event.title} (copy)',
+            description=event.description,
+            trainer=event.trainer,
+            direction=event.direction,
+            max_participants=event.max_participants,
+            start_time=event.start_time + request["start_time"],
+            end_time=event.end_time + request["end_time"],
+        )
+        new_event.save()
         return JsonResponse({'message': 'Sucess!'})
     else:
         return JsonResponse({'message': 'Error!'}, status=400)
