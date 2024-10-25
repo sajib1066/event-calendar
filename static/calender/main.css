@@ -1,6 +1,9 @@
 
 /* classes attached to <body> */
-
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
 .fc-not-allowed,
 .fc-not-allowed .fc-event { /* override events' custom cursors */
   cursor: not-allowed;

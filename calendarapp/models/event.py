@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from calendarapp.models import EventAbstract
 from accounts.models import User
+from sport.models.sport import NULLABLE
 
 
 class EventManager(models.Manager):
@@ -53,13 +54,13 @@ class Event(EventAbstract):
         "sport.Trainer", on_delete=models.SET_NULL, related_name="events", null=True
     )
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.TextField(**NULLABLE)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     direction = models.ForeignKey(
         "sport.Direction", on_delete=models.SET_NULL, related_name="events", null=True
     )
-    max_participants = models.PositiveIntegerField(null=True)
+    max_participants = models.PositiveIntegerField(default=0, **NULLABLE)
 
     objects = EventManager()
 

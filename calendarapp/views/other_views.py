@@ -125,7 +125,7 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
     def get(self, request, *args, **kwargs):
         forms = self.form_class()
         events = Event.objects.get_all_events(user=request.user)
-        events_month = Event.objects.get_running_events(user=request.user)
+        events_current = Event.objects.get_running_events(user=request.user)
         event_list = []
         # start: '2020-09-16T16:00:00'
         for event in events:
@@ -142,7 +142,7 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
             )
 
         context = {"form": forms, "events": event_list,
-                   "events_month": events_month}
+                   "events_current": events_current}
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):

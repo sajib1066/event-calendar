@@ -24,13 +24,13 @@
             <div class="col-md-3">
                 <div id="external-events">
                     <h4 class="mb-4">Текущие события</h4>
-                    {% for event in events_month %}
+                    {% for event in events_current %}
                     <div class="fc-event">
                         <h3>{{ event.title }}</h3>
-                        <p>{{ event.direction }}</p>
-                        <p>{{ event.trainer }}</p>
-                        <p>С: {{ event.start_time }}</p>
-                        <p>До: {{ event.end_time }}</p>
+                        <p>Направление: {{ event.direction }}</p>
+                        <p>Тренер: {{ event.trainer }}</p>
+                        <p>С: {{ event.start_time | date:"H:i" }}</p>
+                        <p>До: {{ event.end_time | date:"H:i" }}</p>
                     </div>
                     {% empty %}
                     <p>Событий не найдено</p>
@@ -156,7 +156,11 @@
         const minute = dataJS.getMinutes().toString().padStart(2, '0');
         const second = dataJS.getSeconds().toString().padStart(2, '0');
         const formatoDjango = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+        const eventModal = document.getElementById('eventModal');
+        const detailModal = document.getElementById('detailModal');
+        const body = document.body;
         return formatoDjango;
+
 
     }
       document.addEventListener('DOMContentLoaded', function() {
@@ -251,6 +255,24 @@
         });
 
         calendar.render();
+        const eventModal = document.getElementById('eventModal');
+        const detailModal = document.getElementById('detailModal');
+        const body = document.body;
+
+        function freezeScroll() {
+            body.style.overflow = 'hidden';
+        }
+
+        function unfreezeScroll() {
+            body.style.overflow = 'auto';
+        }
+
+        eventModal.addEventListener('show.bs.modal', freezeScroll);
+        eventModal.addEventListener('hide.bs.modal', unfreezeScroll);
+
+        detailModal.addEventListener('show.bs.modal', freezeScroll);
+        detailModal.addEventListener('hide.bs.modal', unfreezeScroll);
+
       });
       const closeBtn1 = document.getElementById('modalClose1');
       const closeBtn2 = document.getElementById('modalClose2');
