@@ -4100,34 +4100,37 @@ var FullCalendar = (function (exports) {
     var globalLocales = [];
 
     var RAW_EN_LOCALE = {
-        code: 'en',
+        code: 'ru',
         week: {
             dow: 0,
             doy: 4, // 4 days need to be within the year to be considered the first week
         },
         direction: 'ltr',
         buttonText: {
-            prev: 'prev',
-            next: 'next',
-            prevYear: 'prev year',
-            nextYear: 'next year',
-            year: 'year',
-            today: 'today',
-            month: 'month',
-            week: 'week',
-            day: 'day',
-            list: 'list',
+            prev: 'Пред',
+            next: 'След',
+            prevYear: 'Пред. год',
+            nextYear: 'Следу. год',
+            year: 'год',
+            today: 'сегодня',
+            month: 'месяц',
+            week: 'неделя',
+            day: 'день',
+            list: 'повестка дня',
         },
-        weekText: 'W',
-        allDayText: 'all-day',
-        moreLinkText: 'more',
-        noEventsText: 'No events to display',
+        weekText: 'Нед',
+        allDayText: 'Весь день',
+        moreLinkText: function(n) {
+          return '+ ещё ' + n
+        },
+        noEventsText: 'Нет событий для отображения',
     };
     function organizeRawLocales(explicitRawLocales) {
-        var defaultCode = explicitRawLocales.length > 0 ? explicitRawLocales[0].code : 'en';
+        // var defaultCode = explicitRawLocales.length > 0 ? explicitRawLocales[0].code : 'en';
+        var defaultCode = 'ru';
         var allRawLocales = globalLocales.concat(explicitRawLocales);
         var rawLocaleMap = {
-            en: RAW_EN_LOCALE, // necessary?
+            ru: RAW_EN_LOCALE, // necessary?
         };
         for (var _i = 0, allRawLocales_1 = allRawLocales; _i < allRawLocales_1.length; _i++) {
             var rawLocale = allRawLocales_1[_i];
@@ -4204,7 +4207,7 @@ var FullCalendar = (function (exports) {
     }
     // TODO: more DRY and optimized
     function buildDateEnv$1(settings) {
-        var locale = buildLocale(settings.locale || 'en', organizeRawLocales([]).map); // TODO: don't hardcode 'en' everywhere
+        var locale = buildLocale(settings.locale || 'ru', organizeRawLocales([]).map); // TODO: don't hardcode 'en' everywhere
         return new DateEnv(__assign(__assign({ timeZone: BASE_OPTION_DEFAULTS.timeZone, calendarSystem: 'gregory' }, settings), { locale: locale }));
     }
 

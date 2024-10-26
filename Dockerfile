@@ -13,7 +13,7 @@ COPY . .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Make migrations, as described in the install tutorial from the original repository
-RUN python manage.py makemigrations && python manage.py migrate
+# RUN python manage.py makemigrations && python manage.py migrate
 
 # Expose the port for public access
 ENV DJANGO_DEV_SERVER_PORT 8000

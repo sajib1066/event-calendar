@@ -136,8 +136,8 @@ class CalendarViewNew(LoginRequiredMixin, generic.View):
                  "end": event.end_time.strftime("%Y-%m-%dT%H:%M:%S"),
                  "description": event.description,
                  "trainer": f"{event.trainer}",
-                 # "direction": event.direction,
-                 # "max_participants": event.max_participants,
+                 "direction": event.direction.id,
+                 "max_participants": event.max_participants,
                  }
             )
 
@@ -160,7 +160,7 @@ def delete_event(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     if request.method == 'POST':
         event.delete()
-        return JsonResponse({'message': 'Event sucess delete.'})
+        return JsonResponse({'message': 'Event success delete.'})
     else:
         return JsonResponse({'message': 'Error!'}, status=400)
 
@@ -205,6 +205,6 @@ def copy_event(request, event_id):
             end_time=event.end_time + request["end_time"],
         )
         new_event.save()
-        return JsonResponse({'message': 'Sucess!'})
+        return JsonResponse({'message': 'Success!'})
     else:
         return JsonResponse({'message': 'Error!'}, status=400)

@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
-{% block title %}Event Calendar{% endblock title %}
+{% block title %}Календарь событий{% endblock title %}
 
 {% block extracss %}
 <link href="{% static 'calender/main.css' %}" rel="stylesheet"/>
@@ -13,7 +13,7 @@
 </div>
 <ul class="app-breadcrumb breadcrumb">
     <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-    <li class="breadcrumb-item"><a>Calendar</a></li>
+    <li class="breadcrumb-item"><a>Календарь</a></li>
 </ul>
 {% endblock breadcrumb %}
 
@@ -232,8 +232,7 @@
             modalEnd.textContent = end;
             modalDescription.textContent = description;
             modalTrainer.textContent = trainer;
-
-
+            
             modal.style.display = 'block';
           },
           editable: true,
@@ -299,12 +298,12 @@
       });
       function formatDateTime(dateTime) {
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' };
-        const dataFormatada = new Date(dateTime).toLocaleDateString('en-US', options);
+        const dataFormatada = new Date(dateTime).toLocaleDateString('ru-RU', options);
         return dataFormatada;
       };
       document.getElementById('delete-event-button').addEventListener('click', function() {
         const eventId = this.getAttribute('data-event-id');
-        if (confirm('Are you sure you want to delete this event?')) {
+        if (confirm('Вы уверены, что хотите удалить это событие?')) {
             $.ajax({
                 url: `/delete_event/${eventId}/`,
                 type: 'POST',
@@ -316,7 +315,7 @@
                     window.location.reload();
                 },
                 error: function(xhr, status, error) {
-                    alert('Error!');
+                    alert('Ошибка!');
                 }
 
             });
@@ -324,7 +323,7 @@
 
         document.getElementById('add-to-next-week').addEventListener('click', function() {
             const eventId = this.getAttribute('data-event-id-week');
-            if (confirm('Are you sure you want add this event to next week?')) {
+            if (confirm('Вы уверены, что хотите добавить это событие на следующую неделю?')) {
                 $.ajax({
                   url: `/next_week/${eventId}/`,
                     type: 'POST',
@@ -336,7 +335,7 @@
                         window.location.reload();
                     },
                     error: function(xhr, status, error) {
-                        alert('Error!');
+                        alert('Ошибка!');
                     }
                 });
             }
@@ -344,7 +343,7 @@
 
     document.getElementById('add-to-next-day').addEventListener('click', function() {
       const eventId = this.getAttribute('data-event-id-day');
-      if (confirm('Are you sure you want add this event to next day?')) {
+      if (confirm('Вы уверены, что хотите добавить это событие на следующий день?')) {
           $.ajax({
             url: `/next_day/${eventId}/`,
               type: 'POST',
@@ -356,7 +355,7 @@
                   window.location.reload();
               },
               error: function(xhr, status, error) {
-                  alert('Error!');
+                  alert('Ошибка!');
               }
           });
       }

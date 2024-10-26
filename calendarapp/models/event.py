@@ -9,9 +9,6 @@ from sport.models.sport import NULLABLE
 
 class EventManager(models.Manager):
     """ Event manager """
-    def __init__(self):
-        super().__init__()
-        self.now = datetime.now()
 
     def get_all_events(self, user):
         events = Event.objects.filter(user=user, is_active=True, is_deleted=False)
@@ -22,8 +19,8 @@ class EventManager(models.Manager):
             user=user,
             is_active=True,
             is_deleted=False,
-            end_time__gte=self.now,
-            start_time__lte=self.now
+            end_time__gte=datetime.now(),
+            start_time__lte=datetime.now()
         ).order_by("start_time")
         return running_events
 
@@ -32,7 +29,7 @@ class EventManager(models.Manager):
             user=user,
             is_active=True,
             is_deleted=False,
-            end_time__lt=self.now,
+            end_time__lt=datetime.now(),
         )
         return completed_events
 
@@ -41,7 +38,7 @@ class EventManager(models.Manager):
             user=user,
             is_active=True,
             is_deleted=False,
-            start_time__gt=self.now,
+            start_time__gt=datetime.now(),
         )
         return upcoming_events
 
@@ -74,3 +71,7 @@ class Event(EventAbstract):
     def get_html_url(self):
         url = reverse("calendarapp:event-detail", args=(self.id,))
         return f'<a href="{url}"> {self.title} </a>'
+
+    class Meta:
+        verbose_name = "Событие"
+        verbose_name_plural = "События"

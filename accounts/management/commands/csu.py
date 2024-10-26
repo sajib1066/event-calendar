@@ -1,20 +1,20 @@
+from django.contrib.auth import get_user_model
 from django.core.management import BaseCommand
-
-from ...models import User
 
 
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         try:
-            user = User.objects.create(
-                email='vlad',
+            user_class = get_user_model()
+            user = user_class.objects.create(
+                email='admin@admin.ru',
                 is_staff=True,
                 is_superuser=True,
                 is_active=True
             )
 
-            user.set_password('1')
+            user.set_password('admin')
             user.save()
 
         except Exception as e:

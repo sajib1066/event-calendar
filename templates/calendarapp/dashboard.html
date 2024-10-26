@@ -1,16 +1,16 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %}Event Dashboard{% endblock title %}
+{% block title %}Панель событий{% endblock title %}
 
 {% block breadcrumb %}
     <div>
-        <h1><i class="fa fa-dashboard"></i>Администрирование</h1>
-        <p>Администрирование событий</p>
+        <h1><i class="fa fa-dashboard"></i> Панель событий</h1>
+        <p>Панель для просмотра списка событий</p>
     </div>
     <ul class="app-breadcrumb breadcrumb">
         <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-        <li class="breadcrumb-item"><a >Администрирование</a></li>
+        <li class="breadcrumb-item"><a >Панель событий</a></li>
     </ul>
 {% endblock breadcrumb %}
 
@@ -20,7 +20,7 @@
         <div class="widget-small primary coloured-icon">
             <i class="icon fa fa-files-o fa-3x"></i>
             <div class="info">
-                <h4>Total Running Events</h4>
+                <h4>Текущих событий</h4>
                 <p><b>{{ running_events.count }}</b></p>
             </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="widget-small primary coloured-icon">
             <i class="icon fa fa-clock-o fa-3x"></i>
             <div class="info">
-                <h4>Total Upcoming Events</h4>
+                <h4>Предстоящих событий</h4>
                 <p><b>{{ upcoming_events.count }}</b></p>
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="widget-small primary coloured-icon">
             <i class="icon fa fa-thumbs-o-up fa-3x"></i>
             <div class="info">
-                <h4>Total Completed Events</h4>
+                <h4>Завершенных событий</h4>
                 <p><b>{{ completed_events }}</b></p>
             </div>
         </div>
@@ -71,10 +71,12 @@
                                 <table class="table table-hover table-bordered dataTable no-footer" id="sampleTable" role="grid" aria-describedby="sampleTable_info">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 261.641px;">SL</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 417.312px;">Event Name</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 189.281px;">Start Time</th>
-                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 102.141px;">End Time</th>
+                                            <th class="sorting_asc" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Number: activate to sort column descending" style="width: 261.641px;">№</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Название события: activate to sort column ascending" style="width: 417.312px;">Название события</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Тренер: activate to sort column ascending" style="width: 417.312px;">Тренер</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Направление: activate to sort column ascending" style="width: 417.312px;">Направление</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Время начала: activate to sort column ascending" style="width: 189.281px;">Время начала</th>
+                                            <th class="sorting" tabindex="0" aria-controls="sampleTable" rowspan="1" colspan="1" aria-label="Время окончания: activate to sort column ascending" style="width: 102.141px;">Время окончания</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -82,6 +84,8 @@
                                             <tr role="row" class="odd">
                                                 <td class="sorting_1">{{ forloop.counter }}</td>
                                                 <td>{{ event.title }}</td>
+                                                <td>{{ event.trainer }}</td>
+                                                <td>{{ event.direction }}</td>
                                                 <td>{{ event.start_time }}</td>
                                                 <td>{{ event.end_time }}</td>
                                             </tr>

@@ -14,6 +14,7 @@ class Trainer(models.Model):
 
     class Meta:
         ordering = ['name']
+        verbose_name = 'Тренер'
         verbose_name_plural = 'Тренеры'
 
 
@@ -25,4 +26,5 @@ class Direction(models.Model):
 
     class Meta:
         ordering = ['name']
+        verbose_name = 'Направление'
         verbose_name_plural = 'Направления'
