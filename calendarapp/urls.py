@@ -28,4 +28,14 @@ urlpatterns = [
         views.RunningEventsListView.as_view(),
         name="running_events",
     ),
+    path(
+        "upcoming-event-list/",
+        views.UpcomingEventsListView.as_view(),
+        name="upcoming_events",
+    ),
+    path(
+        "completed-event-list/",
+        views.CompletedEventsListView.as_view(),
+        name="completed_events",
+    ),
 ]

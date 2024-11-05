@@ -1,0 +1,40 @@
+services:
+
+  # web service, frontend and backend included
+  web:
+    build: .  # build the docker, using the dockfile in current dir
+
+    command: python manage.py runserver 0.0.0.0:8000
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - .:/usr/src/app  # mount the project dir to the docker
+    
+    environment:
+      - DJANGO_DEV_SERVER_PORT=8000
+    
+    depends_on:
+      - db
+  
+
+  db:
+    image: postgres:latest
+
+    environment:
+      POSTGRES_DB: calendar_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: "!!UZH_CNSP24_CALENDAR!!"
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - db_data:/var/lib/postgresql/data  # pesistantly store the data even when the docker is deleted or stopped
+  
+volumes:
+ db_data:
+
+
+
