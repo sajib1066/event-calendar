@@ -1,16 +1,10 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 env:
@@ -18,16 +12,13 @@ env:
   DB_USER: postgres
   DB_PASS: postgres
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     services:
       postgres:
-        image: postgres:13-alpine
+        image: postgres:13
         env:
           POSTGRES_DB: $DB_NAME
           POSTGRES_USER: $DB_USER
@@ -36,24 +27,30 @@ jobs:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Setup python
       - name: Setup python
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
 
-      # Install requirements
       - name: Install requirements
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Run migrations
+      - name: Wait for PostgreSQL
+        run: |
+          for i in {1..30}; do
+            if pg_isready -h localhost -p 5432; then
+              echo "PostgreSQL is ready!"
+              break
+            fi
+            echo "Waiting for PostgreSQL to start..."
+            sleep 2
+          done
+
       - name: Run migrations
         env:
           DB_NAME: $DB_NAME
@@ -62,7 +59,6 @@ jobs:
         run: |
           python manage.py migrate --noinput
 
-      # Run tests
       - name: Run tests
         env:
           DB_NAME: $DB_NAME
@@ -71,12 +67,13 @@ jobs:
         run: |
           python manage.py test
 
-      # Check coding style
       - name: Check coding style
         run: |
           flake8
 
-      # check vulnerable package
       - name: Check vulnerable package
         run: |
           pip list --format=freeze | skjold -v audit --sources gemnasium -
+
+      - name: Check PostgreSQL logs
+        run: docker logs $(docker ps -q --filter ancestor=postgres:13)
