@@ -25,7 +25,7 @@ jobs:
           POSTGRES_PASSWORD: $DB_PASS
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
 
     steps:
       - uses: actions/checkout@v2
@@ -76,4 +76,6 @@ jobs:
           pip list --format=freeze | skjold -v audit --sources gemnasium -
 
       - name: Check PostgreSQL logs
-        run: docker logs $(docker ps -q --filter ancestor=postgres:13)
+        run: |
+          echo "PostgreSQL logs:"
+          docker logs $(docker ps -q --filter ancestor=postgres:13)
