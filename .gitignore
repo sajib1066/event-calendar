@@ -128,3 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 .skjold_cache/
+.DS_Store
